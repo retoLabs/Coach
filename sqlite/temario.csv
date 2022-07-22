@@ -1,0 +1,227 @@
+MOD|UF|UD|TEMA|TITULO
+1|0|0|0|MÓDULO 1. MF0491_3 PROGRAMACIÓN WEB EN EL ENTORNO CLIENTE
+1|1|0|0|UNIDAD FORMATIVA 1. UF1841 ELABORACIÓN DE DOCUMENTOS WEB MEDIANTE LENGUAJES DE MARCAS
+1|1|1|0|UNIDAD DIDÁCTICA 1. DISEÑO WEB
+1|1|1|1|Principios de diseño web.
+1|1|1|2|El proceso de diseño web.
+1|1|2|0|UNIDAD DIDÁCTICA 2. LENGUAJES DE MARCADO GENERALES
+1|1|2|1|Origen de los lenguajes de marcado generales: SGML y XML.
+1|1|2|2|Características generales de los lenguajes de marcado.
+1|1|2|3|Estructura general de un documento con lenguaje de marcado.
+1|1|2|4|Documentos válidos y bien formados. Esquemas.
+1|1|3|0|UNIDAD DIDÁCTICA 3. LENGUAJES DE MARCADO PARA PRESENTACIÓN DE PÁGINAS WEB
+1|1|3|1|Historia de HTML y XHTML. Diferencias entre versiones.
+1|1|3|2|Estructura de un documento.
+1|1|3|3|Color.
+1|1|3|4|Texto.
+1|1|3|5|Estilos lógicos.
+1|1|3|6|Enlaces de hipertexto.
+1|1|3|7|Imágenes.
+1|1|3|8|Listas.
+1|1|3|9|Tablas.
+1|1|3|10|Marcos (frames).
+1|1|3|11|Formularios.
+1|1|3|12|Elementos en desuso (deprecated).
+1|1|4|0|UNIDAD DIDÁCTICA 4. HOJAS DE ESTILO WEB
+1|1|4|1|Tipos de hojas de estilo: estáticas y dinámicas.
+1|1|4|2|Elementos y estructura de una hoja de estilo.
+1|1|4|3|Diseño de estilos para diferentes dispositivos.
+1|1|4|4|Buenas prácticas en el uso de hojas de estilo.
+1|2|0|0|UNIDAD FORMATIVA 2. UF1842 DESARROLLO Y REUTILIZACIÓN DE COMPONENTES SOFTWARE Y MULTIMEDIA MEDIANTE LENGUAJES DE GUIÓN
+1|2|1|0|UNIDAD DIDÁCTICA 1. ARQUITECTURAS DE APLICACIONES WEB
+1|2|1|1|Esquema general.
+1|2|1|2|Arquitectura en capas.
+1|2|1|3|Interacción entre las capas cliente y servidor.
+1|2|1|4|Arquitectura de la capa cliente.
+1|2|2|0|UNIDAD DIDÁCTICA 2. NAVEGADORES WEB
+1|2|2|1|Arquitectura de un navegador.
+1|2|2|2|Navegadores de uso común. Comparativa.
+1|2|2|3|Seguridad en navegadores.
+1|2|2|4|Integración de aplicaciones en navegadores. Adaptadores (plugins).
+1|2|2|5|Conformidad a estándares.
+1|2|3|0|UNIDAD DIDÁCTICA 3. CREACIÓN DE CONTENIDO WEB DINÁMICO
+1|2|3|1|Fundamentos de programación.
+1|2|3|2|Librerías.
+1|2|3|3|Lenguajes para el desarrollo de contenido dinámico.
+1|2|3|4|Miniaplicaciones (applets).
+1|2|4|0|UNIDAD DIDÁCTICA 4. LENGUAJES DE GUIÓN DE USO GENERAL
+1|2|4|1|Integración de lenguajes de guión en navegadores web.
+1|2|4|2|Estructura general de un programa en un lenguaje de guión.
+1|2|4|3|Funciones.
+1|2|4|4|Manipulación de texto.
+1|2|4|5|Listas (arrays).
+1|2|4|6|Formatos estándar de almacenamiento de datos en lenguajes de guión.
+1|2|4|7|Objetos.
+1|2|4|8|El modelo de documento web.
+1|2|4|9|Gestión de eventos.
+1|2|4|10|Gestión de errores.
+1|2|4|11|Usos específicos de lenguajes de guión.
+1|2|4|12|Entornos integrados (Frameworks) para el desarrollo con lenguajes de guión.
+1|2|4|13|Comparativa.
+1|2|5|0|UNIDAD DIDÁCTICA 5. CONTENIDOS MULTIMEDIA
+1|2|5|1|Definición de multimedia. Tipos de recursos multimedia.
+1|2|5|2|Inclusión de contenido multimedia en páginas web.
+1|2|5|3|Gráficos multimedia.
+1|2|5|4|Audio.
+1|2|5|5|Edición de fragmentos de audio.
+1|2|5|6|Vídeo.
+1|2|5|7|Animaciones multimedia.
+1|2|5|8|Elementos interactivos.
+1|3|0|0|UNIDAD FORMATIVA 3. UF1843 APLICACIÓN DE TÉCNICAS DE USABILIDAD Y ACCESIBILIDAD EN EL ENTORNO DEL CLIENTE 
+1|3|1|0|UNIDAD DIDÁCTICA 1. ACCESIBILIDAD WEB1.
+1|3|1|1|Definición de accesibilidad web.
+1|3|1|2|Ventajas y dificultades en la implantación de la accesibilidad web.
+1|3|1|3|Normativa y estándares sobre accesibilidad web.
+1|3|1|4|Guías para el cumplimiento de normativas y estándares.
+1|3|1|5|Descripción del proceso de la conformidad en accesibilidad web.
+1|3|1|6|Tecnologías donde la accesibilidad es aplicable.
+1|3|1|7|Herramientas para la validación de la accesibilidad.
+1|3|1|8|Evolución de la accesibilidad. Nuevas tendencias.
+1|3|2|0|UNIDAD DIDÁCTICA 2. USABILIDAD WEB
+1|3|2|1|Definición de usabilidad.
+1|3|2|2|Importancia del diseño web centrado en el usuario.
+1|3|2|3|Diferencias entre accesibilidad y usabilidad.
+1|3|2|4|Ventajas y problemas en la combinación de accesibilidad y usabilidad.
+1|3|2|5|Ventajas y dificultades en la implantación de sitios web usables.
+1|3|2|6|Métodos de usabilidad.
+1|3|2|7|Análisis de requerimientos de usuario.
+1|3|2|8|Principios del diseño conceptual. Creación de prototipos orientados al usuario.
+1|3|2|9|Pautas para la creación de sitios web usables.
+1|3|2|10|Evaluación de la usabilidad.
+2|0|0|0|MÓDULO 2. MF0492_3 PROGRAMACIÓN WEB EN EL ENTORNO SERVIDOR
+2|1|0|0|UNIDAD FORMATIVA 1. UF1844 DESARROLLO DE APLICACIONES WEB EN EL ENTORNO SERVIDOR
+2|1|1|0|UNIDAD DIDÁCTICA 1. EL PROCESO DEL DESARROLLO DE SOFTWARE
+2|1|1|1|Modelos del ciclo de vida del software.
+2|1|1|2|Análisis y especificación de requisitos.
+2|1|1|3|Diseño.
+2|1|1|4|Implementación. Conceptos generales de desarrollo de software.
+2|1|1|5|Validación y verificación de sistemas.
+2|1|1|6|Pruebas de software.
+2|1|1|7|Calidad del software.
+2|1|1|8|Herramientas de uso común para el desarrollo de software
+2|1|1|9|Gestión de proyectos de desarrollo de software.
+2|1|2|0|UNIDAD DIDÁCTICA 2. LA ORIENTACIÓN A OBJETOS
+2|1|2|1|Principios de la orientación a objetos. Comparación con la programación estructurada.
+2|1|2|2|Clases de objetos.
+2|1|2|3|Objetos.
+2|1|2|4|Herencia.
+2|1|2|5|Modularidad.
+2|1|2|6|Genericidad y sobrecarga.
+2|1|2|7|Desarrollo orientado a objetos.
+2|1|2|8|Lenguajes de modelización en el desarrollo orientado a objetos.
+2|1|3|0|UNIDAD DIDÁCTICA 3. ARQUITECTURAS WEB
+2|1|3|1|Concepto de arquitectura web.
+2|1|3|2|El modelo de capas.
+2|1|3|3|Plataformas para el desarrollo en las capas servidor.
+2|1|3|4|Herramientas de desarrollo orientadas a servidor de aplicaciones web.
+2|1|4|0|UNIDAD DIDÁCTICA 4. LENGUAJES DE PROGRAMACIÓN DE APLICACIONES WEB EN EL LADO SERVIDOR
+2|1|4|1|Características de los lenguajes de programación web en servidor.
+2|1|4|2|Tipos y características de los lenguajes de uso común.
+2|1|4|3|Criterios en la elección de un lenguaje de programación web en servidor. Ventajas e inconvenientes.
+2|1|4|4|Características generales.
+2|1|4|5|Gestión de la configuración.
+2|1|4|6|Gestión de la seguridad.
+2|1|4|7|Gestión de errores.
+2|1|4|8|Transacciones y persistencia.
+2|1|4|9|Componentes en servidor. Ventajas e inconvenientes en el uso de contenedores de componentes.
+2|1|4|10|Modelos de desarrollo. El modelo vista controlador.
+2|1|4|11|Eventos e interfaz de usuario.
+2|1|4|12|Documentación del software. Inclusión en código fuente. Generadores de documentación.
+2|2|0|0|UNIDAD FORMATIVA 2. UF1845 ACCESO A DATOS EN APLICACIONES WEB DEL ENTORNO SERVIDOR
+2|2|1|0|UNIDAD DIDÁCTICA 1. MODELOS DE DATOS
+2|2|1|1|Concepto de dato. Ciclo de vida de los datos.
+2|2|1|2|Tipos de datos.
+2|2|1|3|Definición de un modelo conceptual.
+2|2|1|4|El modelo relacional.
+2|2|1|5|Construcción del modelo lógico de datos.
+2|2|1|6|El modelo físico de datos. Ficheros de datos.
+2|2|1|7|Transformación de un modelo lógico en un modelo físico de datos.
+2|2|1|8|Herramientas para la realización de modelos de datos.
+2|2|2|0|UNIDAD DIDÁCTICA 2. SISTEMAS DE GESTIÓN DE BASES DE DATOS (SGBD)
+2|2|2|1|Definición de SGBD.
+2|2|2|2|Componentes de un SGDB. Estructura.
+2|2|2|3|Terminología de SGDB.
+2|2|2|4|Administración de un SGDB.
+2|2|2|5|Soluciones de SGBD.
+2|2|2|6|Criterios para la selección de SGBD comerciales.
+2|2|3|0|UNIDAD DIDÁCTICA 3. LENGUAJES DE GESTIÓN DE BASES DE DATOS. EL ESTÁNDAR SQL
+2|2|3|1|Descripción del estándar SQL.
+2|2|3|2|Creación de bases de datos.
+2|2|3|3|Gestión de registros en tablas.
+2|2|3|4|Consultas.
+2|2|3|5|Conversión, generación y manipulación de datos.
+2|2|3|6|Consultas múltiples. Uniones (joins).
+2|2|3|7|Agrupaciones.
+2|2|3|8|Vistas.
+2|2|3|9|Funciones avanzadas.
+2|2|4|0|UNIDAD DIDÁCTICA 4. LENGUAJES DE MARCAS DE USO COMÚN EN EL LADO SERVIDOR
+2|2|4|1|Origen e historia de los lenguajes de marcas. El estándar XML.
+2|2|4|2|Características de XML.
+2|2|4|3|Estructura de XML.
+2|2|4|4|Estándares basados en XML.
+2|2|4|5|Análisis XML.
+2|2|4|6|Uso de XML en el intercambio de información.
+2|3|0|0|UNIDAD FORMATIVA 3. UF1846 DESARROLLO DE APLICACIONES WEB DISTRIBUIDAS
+2|3|1|0|UNIDAD DIDÁCTICA 1. ARQUITECTURAS DISTRIBUIDAS ORIENTADAS A SERVICIOS
+2|3|1|1|Características generales de las arquitecturas de servicios distribuidos.
+2|3|1|2|Modelo conceptual de las arquitecturas orientadas a servicios
+2|3|1|3|Aspectos de seguridad en arquitecuturas orientadas a servicios
+2|3|1|4|Implementación de arquitecturas orientadas a servicios mediante tecnologías web
+2|3|1|5|Implementación de la seguridad en arquitecturas orientadas a servicios
+2|3|1|6|Directorios de servicios
+2|3|2|0|UNIDAD DIDÁCTICA 2. PROGRAMACIÓN DE SERVICIOS WEB EN ENTORNOS DISTRIBUIDOS 
+2|3|2|1|Componentes software para el acceso a servicios distribuidos
+2|3|2|2|Programación de diferentes tipos de acceso a servicios
+2|3|2|3|Herramientas para la programación de servicios web
+3|0|0|0|MÓDULO 3. MF0493_3 IMPLANTACIÓN DE APLICACIONES WEB EN ENTORNOS INTERNET, INTRANET Y EXTRANET
+3|1|1|0|UNIDAD DIDÁCTICA 1. INTERNET
+3|1|1|1|Breve historia y origen de Internet.
+3|1|1|2|Principales servicios ofrecidos por Internet.
+3|1|1|3|La tecnología de Internet.
+3|1|1|4|Redes TCP/IP.
+3|1|1|5|Consideraciones de seguridad. Cortafuegos.
+3|1|2|0|UNIDAD DIDÁCTICA 2. LA WORLD WIDE WEB
+3|1|2|1|Breve historia de la World Wide Web.
+3|1|2|2|Arquitectura general de la Web.
+3|1|2|3|El cliente web.
+3|1|2|4|Servidores web.
+3|1|2|5|Servidores de aplicaciones.
+3|1|2|6|Servidores de bases de datos.7. Servidores complementarios en una arquitectura web.
+3|1|2|7|Características.
+3|1|2|8|Infraestructura hardware y software para servidores de Internet.
+3|1|3|0|UNIDAD DIDÁCTICA 3. APLICACIONES WEB
+3|1|3|1|Evolución y tipos de aplicaciones informáticas.
+3|1|3|2|Tecnologías de desarrollo de aplicaciones.
+3|1|3|3|Tecnologías específicas para el desarrollo web.
+3|1|4|0|UNIDAD DIDÁCTICA 4. DESARROLLO Y DESPLIEGUE DE APLICACIONES WEB
+3|1|4|1|Modelos básicos de desarrollo de aplicaciones web. El modelo vista-controlador (MVC).
+3|1|4|2|Herramientas de desarrollo web de uso común.
+3|1|4|3|Políticas de desarrollo y pruebas de aplicaciones web.
+3|1|4|4|Seguridad en una aplicación web.
+3|1|4|5|Certificados digitales.
+3|1|4|6|Despliegue de aplicaciones web.
+3|1|5|0|UNIDAD DIDÁCTICA 5. VERIFICACIÓN DE APLICACIONES WEB
+3|1|5|1|Características de un proceso de pruebas.
+3|1|5|2|Tipos de pruebas.
+3|1|5|3|Estadísticas.
+3|1|5|4|Diseño y planificación de pruebas. Estrategias de uso común..
+3|1|5|5|Consideraciones de confidencialidad. Pruebas con datos personales.
+3|1|5|6|Automatización de pruebas. Herramientas.
+3|1|6|0|UNIDAD DIDÁCTICA 6. CONTROL DE VERSIONES
+3|1|6|1|Definición.
+3|1|6|2|Características generales.
+3|1|6|3|Tipos de control de versiones.
+3|1|6|4|Mecanismos de control de versiones
+3|1|6|5|Operaciones atómicas
+3|1|6|6|Buenas prácticas en control de versiones.
+3|1|6|7|Herramientas de control de versiones de uso común.
+3|1|6|8|Integración del control de versiones en herramientas de uso común.
+3|1|7|0|UNIDAD DIDÁCTICA 7. DOCUMENTACIÓN DE APLICACIONES WEB
+3|1|7|1|Características generales de la documentación. Importancia en el ciclo de vida software
+3|1|7|2|Organización y estructura básica de documentos.
+3|1|7|3|Gestión de versiones de documentos.
+3|1|7|4|Tipos de documentación.
+3|1|7|5|Formatos de documentación.
+3|1|7|6|Estándares de documentación.
+3|1|7|7|Herramientas de documentación.
+3|1|7|8|Buenas prácticas en documentación.

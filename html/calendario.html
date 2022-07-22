@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name='viewport' content='width=device-width, user-scalable=no'>
+	<title>Calendario</title>
+
+<!--  ==================== LOCAL ==================  -->
+    <link rel="stylesheet" href="lib/bootstrap_335.min.css">
+    <link rel="stylesheet" href="lib/font-awesome_430.min.css">
+    <script src="lib/jquery_321.min.js"></script>
+    <script src="lib/bootstrap_337.min.js"></script>
+    <script src="lib/vue_2517.js"></script>
+	<script type='text/javascript' src='lib/libBase64.js'></script>
+
+
+	<link rel="stylesheet" href="css/vueModal.css">
+
+	<script type='module' src='js/calendario.js'></script>
+
+	<style>
+
+		.sem td {text-align:center;}
+		.sem td > h3{margin: 0px;}
+		.sem tr th { width: 14.3% !important;}
+
+		.mes > tbody > tr {height : 100px;}
+		.mes tr th { width: 12.5% !important;}
+		.mes tr th td { width: 100% !important;height:100% !important;}
+
+		.jar {border: 2px gray solid !important;}
+		.jar > tbody > tr {height : 30px;}
+		.jar tr th { width: 12.5% !important;}
+		.jar tr th td { width: 100% !important;height:60% !important;}
+		h3 {cursor : pointer;}
+		.LAB {color:black;}
+		.DOM {color:red;}
+		.LOC {color:blue;}
+		.AUT {color:green;}
+		.NAC {color:red;}
+		.hoy {border:3px gray solid !important}
+		.tsk {font-size:300%;color:gray;text-align: center;margin:0px;padding:0px;}
+		.retol {float:bottom;}
+		strong {cursor:pointer;}
+	</style>
+</head>
+
+<body>
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#">Calendario</a>
+	    </div>
+	    <ul class="nav navbar-nav">
+	      <li><a href="javascript:goPag('DASH')">Inicio</a></li>
+	      <li><a href="javascript:showListaKairos()">Kairos</a></li>
+	    </ul>
+
+		<ul class="nav navbar-nav navbar-right">
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+					<i class="fa fa-user">&nbsp;</i>
+					<span id="usrMenu"> User</span>
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li>
+						<a href="javascript:cambiaPwdUser()">
+							<span id="CHPWD">Cambiar password</span>
+						</a>
+					</li>
+					<li>
+						<a href="javascript:cambiaKeoUser()">
+							<span id="CHKEO">Cambiar idioma</span>
+						</a>
+					</li>
+					<li>
+						<a href="javascript:cierraSesion()">
+							<span id="EXIT">Cerrar sesión**</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	  </div>
+	</nav> 
+
+	<div class="container">
+		<div class="row">
+		<div class="col-md-12">
+
+		<div id="divJar">
+			<div class="row">
+			<button  v-if="items.length > 0" type="button" class="btn pull-left blanco" @click="atras()"><h1><i class="fa fa-angle-left"></i></h1></button>
+			<button  v-if="items.length > 0" type="button" class="btn pull-right blanco" @click="avant()"><h1><i class="fa fa-angle-right"></i></h1></button>
+			<h1 v-if="items.length > 0" class="text-center" >{{jar}}</h1>
+			</div>
+<!--- ENE FEB MAR ABR ----------------------------------------->			
+		<div v-if="items.length > 0" class="row">
+
+		<div class="col-md-3" id="ENE">
+			<h3 class="text-center" @click="showMes(0)">{{tags[0]}}</h3>
+			<table class="table table-bordered jar">
+				<thead>
+					<tr>
+						<th  class="text-center" v-for="head in heads" >{{head}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="(item,idx) in items[0]" >
+
+						<td style="height:100%" v-bind:class="[item.L.dF, {hoy:item.L.hoy},{tsk:item.L.tasks}]" @click="setDia(item.L.id0)" v-if="item.L">
+							<div ><strong>{{item.L.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.M.dF, {hoy:item.M.hoy},{tsk:item.M.tasks}]" @click="setDia(item.M.id0)" v-if="item.M">
+							<div ><strong>{{item.M.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.X.dF, {hoy:item.X.hoy},{tsk:item.X.tasks}]" @click="setDia(item.X.id0)" v-if="item.X">
+							<div ><strong>{{item.X.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.J.dF, {hoy:item.J.hoy},{tsk:item.J.tasks}]" @click="setDia(item.J.id0)" v-if="item.J">
+							<div ><strong>{{item.J.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.V.dF, {hoy:item.V.hoy},{tsk:item.V.tasks}]" @click="setDia(item.V.id0)" v-if="item.V">
+							<div ><strong>{{item.V.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.S.dF, {hoy:item.S.hoy},{tsk:item.S.tasks}]" @click="setDia(item.S.id0)" v-if="item.S">
+							<div ><strong>{{item.S.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%;color:red" v-bind:class="[item.D.dF, {hoy:item.D.hoy},{tsk:item.D.tasks}]" @click="setDia(item.D.id0)" v-if="item.D">
+							<div ><strong>{{item.D.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>  <!-- divMes ENE-->
+					
+		<div class="col-md-3" id="FEB">
+			<h3 class="text-center" @click="showMes(1)">{{tags[1]}}</h3>
+			<table class="table table-bordered jar">
+				<thead>
+					<tr>
+						<th  class="text-center" v-for="head in heads" >{{head}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="(item,idx) in items[1]" >
+
+						<td style="height:100%" v-bind:class="[item.L.dF, {hoy:item.L.hoy},{tsk:item.L.tasks}]" @click="setDia(item.L.id0)" v-if="item.L">
+							<div ><strong>{{item.L.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.M.dF, {hoy:item.M.hoy},{tsk:item.M.tasks}]" @click="setDia(item.M.id0)" v-if="item.M">
+							<div ><strong>{{item.M.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.X.dF, {hoy:item.X.hoy},{tsk:item.X.tasks}]" @click="setDia(item.X.id0)" v-if="item.X">
+							<div ><strong>{{item.X.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.J.dF, {hoy:item.J.hoy},{tsk:item.J.tasks}]" @click="setDia(item.J.id0)" v-if="item.J">
+							<div ><strong>{{item.J.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.V.dF, {hoy:item.V.hoy},{tsk:item.V.tasks}]" @click="setDia(item.V.id0)" v-if="item.V">
+							<div ><strong>{{item.V.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.S.dF, {hoy:item.S.hoy},{tsk:item.S.tasks}]" @click="setDia(item.S.id0)" v-if="item.S">
+							<div ><strong>{{item.S.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%;color:red" v-bind:class="[item.D.dF, {hoy:item.D.hoy},{tsk:item.D.tasks}]" @click="setDia(item.D.id0)" v-if="item.D">
+							<div ><strong>{{item.D.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>  <!-- divMes FEB-->
+
+
+		<div class="col-md-3" id="MAR">
+			<h3 class="text-center" @click="showMes(2)">{{tags[2]}}</h3>
+			<table class="table table-bordered jar">
+				<thead>
+					<tr>
+						<th  class="text-center" v-for="head in heads" >{{head}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="(item,idx) in items[2]" >
+
+						<td style="height:100%" v-bind:class="[item.L.dF, {hoy:item.L.hoy},{tsk:item.L.tasks}]" @click="setDia(item.L.id0)" v-if="item.L">
+							<div ><strong>{{item.L.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.M.dF, {hoy:item.M.hoy},{tsk:item.M.tasks}]" @click="setDia(item.M.id0)" v-if="item.M">
+							<div ><strong>{{item.M.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.X.dF, {hoy:item.X.hoy},{tsk:item.X.tasks}]" @click="setDia(item.X.id0)" v-if="item.X">
+							<div ><strong>{{item.X.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.J.dF, {hoy:item.J.hoy},{tsk:item.J.tasks}]" @click="setDia(item.J.id0)" v-if="item.J">
+							<div ><strong>{{item.J.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.V.dF, {hoy:item.V.hoy},{tsk:item.V.tasks}]" @click="setDia(item.V.id0)" v-if="item.V">
+							<div ><strong>{{item.V.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.S.dF, {hoy:item.S.hoy},{tsk:item.S.tasks}]" @click="setDia(item.S.id0)" v-if="item.S">
+							<div ><strong>{{item.S.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%;color:red" v-bind:class="[item.D.dF, {hoy:item.D.hoy},{tsk:item.D.tasks}]" @click="setDia(item.D.id0)" v-if="item.D">
+							<div ><strong>{{item.D.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>  <!-- divMes MAR-->
+
+		<div class="col-md-3" id="ABR">
+			<h3 class="text-center" @click="showMes(3)">{{tags[3]}}</h3>
+			<table class="table table-bordered jar">
+				<thead>
+					<tr>
+						<th  class="text-center" v-for="head in heads" >{{head}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="(item,idx) in items[3]" >
+
+						<td style="height:100%" v-bind:class="[item.L.dF, {hoy:item.L.hoy},{tsk:item.L.tasks}]" @click="setDia(item.L.id0)" v-if="item.L">
+							<div ><strong>{{item.L.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.M.dF, {hoy:item.M.hoy},{tsk:item.M.tasks}]" @click="setDia(item.M.id0)" v-if="item.M">
+							<div ><strong>{{item.M.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.X.dF, {hoy:item.X.hoy},{tsk:item.X.tasks}]" @click="setDia(item.X.id0)" v-if="item.X">
+							<div ><strong>{{item.X.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.J.dF, {hoy:item.J.hoy},{tsk:item.J.tasks}]" @click="setDia(item.J.id0)" v-if="item.J">
+							<div ><strong>{{item.J.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.V.dF, {hoy:item.V.hoy},{tsk:item.V.tasks}]" @click="setDia(item.V.id0)" v-if="item.V">
+							<div ><strong>{{item.V.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.S.dF, {hoy:item.S.hoy},{tsk:item.S.tasks}]" @click="setDia(item.S.id0)" v-if="item.S">
+							<div ><strong>{{item.S.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%;color:red" v-bind:class="[item.D.dF, {hoy:item.D.hoy},{tsk:item.D.tasks}]" @click="setDia(item.D.id0)" v-if="item.D">
+							<div ><strong>{{item.D.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>  <!-- divMes ABR-->
+
+
+				</div> <!-- row -->
+
+<!--- MAY JUN JUL AGO ----------------------------------------->			
+		<div class="row" v-if="items.length > 0" >
+
+		<div class="col-md-3" id="MAY">
+			<h3 class="text-center" @click="showMes(4)">{{tags[4]}}</h3>
+			<table class="table table-bordered jar">
+				<thead>
+					<tr>
+						<th  class="text-center" v-for="head in heads" >{{head}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="(item,idx) in items[4]" >
+
+						<td style="height:100%" v-bind:class="[item.L.dF, {hoy:item.L.hoy},{tsk:item.L.tasks}]" @click="setDia(item.L.id0)" v-if="item.L">
+							<div ><strong>{{item.L.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.M.dF, {hoy:item.M.hoy},{tsk:item.M.tasks}]" @click="setDia(item.M.id0)" v-if="item.M">
+							<div ><strong>{{item.M.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.X.dF, {hoy:item.X.hoy},{tsk:item.X.tasks}]" @click="setDia(item.X.id0)" v-if="item.X">
+							<div ><strong>{{item.X.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.J.dF, {hoy:item.J.hoy},{tsk:item.J.tasks}]" @click="setDia(item.J.id0)" v-if="item.J">
+							<div ><strong>{{item.J.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.V.dF, {hoy:item.V.hoy},{tsk:item.V.tasks}]" @click="setDia(item.V.id0)" v-if="item.V">
+							<div ><strong>{{item.V.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.S.dF, {hoy:item.S.hoy},{tsk:item.S.tasks}]" @click="setDia(item.S.id0)" v-if="item.S">
+							<div ><strong>{{item.S.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%;color:red" v-bind:class="[item.D.dF, {hoy:item.D.hoy},{tsk:item.D.tasks}]" @click="setDia(item.D.id0)" v-if="item.D">
+							<div ><strong>{{item.D.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>  <!-- divMes MAY-->
+					
+		<div class="col-md-3" id="JUN">
+			<h3 class="text-center" @click="showMes(5)">{{tags[5]}}</h3>
+			<table class="table table-bordered jar">
+				<thead>
+					<tr>
+						<th  class="text-center" v-for="head in heads" >{{head}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="(item,idx) in items[5]" >
+
+						<td style="height:100%" v-bind:class="[item.L.dF, {hoy:item.L.hoy},{tsk:item.L.tasks}]" @click="setDia(item.L.id0)" v-if="item.L">
+							<div ><strong>{{item.L.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.M.dF, {hoy:item.M.hoy},{tsk:item.M.tasks}]" @click="setDia(item.M.id0)" v-if="item.M">
+							<div ><strong>{{item.M.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.X.dF, {hoy:item.X.hoy},{tsk:item.X.tasks}]" @click="setDia(item.X.id0)" v-if="item.X">
+							<div ><strong>{{item.X.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.J.dF, {hoy:item.J.hoy},{tsk:item.J.tasks}]" @click="setDia(item.J.id0)" v-if="item.J">
+							<div ><strong>{{item.J.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.V.dF, {hoy:item.V.hoy},{tsk:item.V.tasks}]" @click="setDia(item.V.id0)" v-if="item.V">
+							<div ><strong>{{item.V.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.S.dF, {hoy:item.S.hoy},{tsk:item.S.tasks}]" @click="setDia(item.S.id0)" v-if="item.S">
+							<div ><strong>{{item.S.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%;color:red" v-bind:class="[item.D.dF, {hoy:item.D.hoy},{tsk:item.D.tasks}]" @click="setDia(item.D.id0)" v-if="item.D">
+							<div ><strong>{{item.D.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>  <!-- divMes JUN-->
+
+
+		<div class="col-md-3" id="JUL">
+			<h3 class="text-center" @click="showMes(6)">{{tags[6]}}</h3>
+			<table class="table table-bordered jar">
+				<thead>
+					<tr>
+						<th  class="text-center" v-for="head in heads" >{{head}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="(item,idx) in items[6]" >
+
+						<td style="height:100%" v-bind:class="[item.L.dF, {hoy:item.L.hoy},{tsk:item.L.tasks}]" @click="setDia(item.L.id0)" v-if="item.L">
+							<div ><strong>{{item.L.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.M.dF, {hoy:item.M.hoy},{tsk:item.M.tasks}]" @click="setDia(item.M.id0)" v-if="item.M">
+							<div ><strong>{{item.M.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.X.dF, {hoy:item.X.hoy},{tsk:item.X.tasks}]" @click="setDia(item.X.id0)" v-if="item.X">
+							<div ><strong>{{item.X.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.J.dF, {hoy:item.J.hoy},{tsk:item.J.tasks}]" @click="setDia(item.J.id0)" v-if="item.J">
+							<div ><strong>{{item.J.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.V.dF, {hoy:item.V.hoy},{tsk:item.V.tasks}]" @click="setDia(item.V.id0)" v-if="item.V">
+							<div ><strong>{{item.V.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.S.dF, {hoy:item.S.hoy},{tsk:item.S.tasks}]" @click="setDia(item.S.id0)" v-if="item.S">
+							<div ><strong>{{item.S.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%;color:red" v-bind:class="[item.D.dF, {hoy:item.D.hoy},{tsk:item.D.tasks}]" @click="setDia(item.D.id0)" v-if="item.D">
+							<div ><strong>{{item.D.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>  <!-- divMes JUL-->
+
+		<div class="col-md-3" id="AGO">
+			<h3 class="text-center" @click="showMes(7)">{{tags[7]}}</h3>
+			<table class="table table-bordered jar">
+				<thead>
+					<tr>
+						<th  class="text-center" v-for="head in heads" >{{head}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="(item,idx) in items[7]" >
+
+						<td style="height:100%" v-bind:class="[item.L.dF, {hoy:item.L.hoy},{tsk:item.L.tasks}]" @click="setDia(item.L.id0)" v-if="item.L">
+							<div ><strong>{{item.L.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.M.dF, {hoy:item.M.hoy},{tsk:item.M.tasks}]" @click="setDia(item.M.id0)" v-if="item.M">
+							<div ><strong>{{item.M.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.X.dF, {hoy:item.X.hoy},{tsk:item.X.tasks}]" @click="setDia(item.X.id0)" v-if="item.X">
+							<div ><strong>{{item.X.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.J.dF, {hoy:item.J.hoy},{tsk:item.J.tasks}]" @click="setDia(item.J.id0)" v-if="item.J">
+							<div ><strong>{{item.J.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.V.dF, {hoy:item.V.hoy},{tsk:item.V.tasks}]" @click="setDia(item.V.id0)" v-if="item.V">
+							<div ><strong>{{item.V.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.S.dF, {hoy:item.S.hoy},{tsk:item.S.tasks}]" @click="setDia(item.S.id0)" v-if="item.S">
+							<div ><strong>{{item.S.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%;color:red" v-bind:class="[item.D.dF, {hoy:item.D.hoy},{tsk:item.D.tasks}]" @click="setDia(item.D.id0)" v-if="item.D">
+							<div ><strong>{{item.D.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>  <!-- divMes AGO-->
+				</div> <!-- row  MJJA-->
+
+<!--- SEP OCT NOV DIC ----------------------------------------->			
+		<div class="row" v-if="items.length > 0" >
+
+		<div class="col-md-3" id="SEP">
+			<h3 class="text-center" @click="showMes(8)">{{tags[8]}}</h3>
+			<table class="table table-bordered jar">
+				<thead>
+					<tr>
+						<th  class="text-center" v-for="head in heads" >{{head}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="(item,idx) in items[8]" >
+
+						<td style="height:100%" v-bind:class="[item.L.dF, {hoy:item.L.hoy},{tsk:item.L.tasks}]" @click="setDia(item.L.id0)" v-if="item.L">
+							<div ><strong>{{item.L.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.M.dF, {hoy:item.M.hoy},{tsk:item.M.tasks}]" @click="setDia(item.M.id0)" v-if="item.M">
+							<div ><strong>{{item.M.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.X.dF, {hoy:item.X.hoy},{tsk:item.X.tasks}]" @click="setDia(item.X.id0)" v-if="item.X">
+							<div ><strong>{{item.X.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.J.dF, {hoy:item.J.hoy},{tsk:item.J.tasks}]" @click="setDia(item.J.id0)" v-if="item.J">
+							<div ><strong>{{item.J.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.V.dF, {hoy:item.V.hoy},{tsk:item.V.tasks}]" @click="setDia(item.V.id0)" v-if="item.V">
+							<div ><strong>{{item.V.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.S.dF, {hoy:item.S.hoy},{tsk:item.S.tasks}]" @click="setDia(item.S.id0)" v-if="item.S">
+							<div ><strong>{{item.S.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%;color:red" v-bind:class="[item.D.dF, {hoy:item.D.hoy},{tsk:item.D.tasks}]" @click="setDia(item.D.id0)" v-if="item.D">
+							<div ><strong>{{item.D.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>  <!-- divMes SEP-->
+					
+		<div class="col-md-3" id="OCT">
+			<h3 class="text-center" @click="showMes(9)">{{tags[9]}}</h3>
+			<table class="table table-bordered jar">
+				<thead>
+					<tr>
+						<th  class="text-center" v-for="head in heads" >{{head}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="(item,idx) in items[9]" >
+
+						<td style="height:100%" v-bind:class="[item.L.dF, {hoy:item.L.hoy},{tsk:item.L.tasks}]" @click="setDia(item.L.id0)" v-if="item.L">
+							<div ><strong>{{item.L.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.M.dF, {hoy:item.M.hoy},{tsk:item.M.tasks}]" @click="setDia(item.M.id0)" v-if="item.M">
+							<div ><strong>{{item.M.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.X.dF, {hoy:item.X.hoy},{tsk:item.X.tasks}]" @click="setDia(item.X.id0)" v-if="item.X">
+							<div ><strong>{{item.X.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.J.dF, {hoy:item.J.hoy},{tsk:item.J.tasks}]" @click="setDia(item.J.id0)" v-if="item.J">
+							<div ><strong>{{item.J.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.V.dF, {hoy:item.V.hoy},{tsk:item.V.tasks}]" @click="setDia(item.V.id0)" v-if="item.V">
+							<div ><strong>{{item.V.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.S.dF, {hoy:item.S.hoy},{tsk:item.S.tasks}]" @click="setDia(item.S.id0)" v-if="item.S">
+							<div ><strong>{{item.S.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%;color:red" v-bind:class="[item.D.dF, {hoy:item.D.hoy},{tsk:item.D.tasks}]" @click="setDia(item.D.id0)" v-if="item.D">
+							<div ><strong>{{item.D.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>  <!-- divMes OCT-->
+
+
+		<div class="col-md-3" id="NOV">
+			<h3 class="text-center" @click="showMes(10)">{{tags[10]}}</h3>
+			<table class="table table-bordered jar">
+				<thead>
+					<tr>
+						<th  class="text-center" v-for="head in heads" >{{head}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="(item,idx) in items[10]" >
+
+						<td style="height:100%" v-bind:class="[item.L.dF, {hoy:item.L.hoy},{tsk:item.L.tasks}]" @click="setDia(item.L.id0)" v-if="item.L">
+							<div ><strong>{{item.L.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.M.dF, {hoy:item.M.hoy},{tsk:item.M.tasks}]" @click="setDia(item.M.id0)" v-if="item.M">
+							<div ><strong>{{item.M.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.X.dF, {hoy:item.X.hoy},{tsk:item.X.tasks}]" @click="setDia(item.X.id0)" v-if="item.X">
+							<div ><strong>{{item.X.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.J.dF, {hoy:item.J.hoy},{tsk:item.J.tasks}]" @click="setDia(item.J.id0)" v-if="item.J">
+							<div ><strong>{{item.J.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.V.dF, {hoy:item.V.hoy},{tsk:item.V.tasks}]" @click="setDia(item.V.id0)" v-if="item.V">
+							<div ><strong>{{item.V.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.S.dF, {hoy:item.S.hoy},{tsk:item.S.tasks}]" @click="setDia(item.S.id0)" v-if="item.S">
+							<div ><strong>{{item.S.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%;color:red" v-bind:class="[item.D.dF, {hoy:item.D.hoy},{tsk:item.D.tasks}]" @click="setDia(item.D.id0)" v-if="item.D">
+							<div ><strong>{{item.D.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>  <!-- divMes NOV-->
+
+		<div class="col-md-3" id="DIC">
+			<h3 class="text-center" @click="showMes(11)">{{tags[11]}}</h3>
+			<table class="table table-bordered jar">
+				<thead>
+					<tr>
+						<th  class="text-center" v-for="head in heads" >{{head}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="(item,idx) in items[11]" >
+
+						<td style="height:100%" v-bind:class="[item.L.dF, {hoy:item.L.hoy},{tsk:item.L.tasks}]" @click="setDia(item.L.id0)" v-if="item.L">
+							<div ><strong>{{item.L.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.M.dF, {hoy:item.M.hoy},{tsk:item.M.tasks}]" @click="setDia(item.M.id0)" v-if="item.M">
+							<div ><strong>{{item.M.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.X.dF, {hoy:item.X.hoy},{tsk:item.X.tasks}]" @click="setDia(item.X.id0)" v-if="item.X">
+							<div ><strong>{{item.X.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.J.dF, {hoy:item.J.hoy},{tsk:item.J.tasks}]" @click="setDia(item.J.id0)" v-if="item.J">
+							<div ><strong>{{item.J.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.V.dF, {hoy:item.V.hoy},{tsk:item.V.tasks}]" @click="setDia(item.V.id0)" v-if="item.V">
+							<div ><strong>{{item.V.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.S.dF, {hoy:item.S.hoy},{tsk:item.S.tasks}]" @click="setDia(item.S.id0)" v-if="item.S">
+							<div ><strong>{{item.S.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%;color:red" v-bind:class="[item.D.dF, {hoy:item.D.hoy},{tsk:item.D.tasks}]" @click="setDia(item.D.id0)" v-if="item.D">
+							<div ><strong>{{item.D.tag}}</strong></div>
+						</td>
+						<td v-else></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>  <!-- divMes DIC-->
+				</div> <!-- row  SOND-->
+
+
+			</div>
+		</div> <!-- JAR -->
+
+<!---- ============================== MES =====================-->
+
+		<div id="divMes">
+			<div v-if="items.length > 0">
+			<button  type="button" class="btn pull-left blanco" @click="atrasTodo()"><h1><i class="fa fa-angle-double-left"></i></h1></button>
+			<button  type="button" class="btn pull-left blanco" @click="atras()"><h1><i class="fa fa-angle-left"></i></h1></button>
+			<button  type="button" class="btn pull-right blanco" @click="showJar()"><h1><i class="fa fa-calendar"></i></h1></button>
+			<button  type="button" class="btn pull-right blanco" @click="avantTodo()"><h1><i class="fa fa-angle-double-right"></i></h1></button>
+			<button  type="button" class="btn pull-right blanco" @click="avant()"><h1><i class="fa fa-angle-right"></i></h1></button>
+
+			<h1 class="text-center">{{tag}} {{jar}}</h1>
+		</div>
+			<table v-if="items.length > 0" class="table table-bordered mes">
+				<thead>
+					<tr>
+						<th style="width:3%!important;">Sem</th>
+						<th  class="text-center" v-for="head in heads" >{{head}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="(item,idx) in items" >
+						<td><button type="button" @click="verSemana(item.W)">{{item.W}}</button></td>
+
+						<td style="height:100%" v-bind:class="[item.L.dF, {hoy:item.L.hoy}]" @click="setDia(item.L.id0)" v-if="item.L">
+							<div ><strong>{{item.L.tag}}</strong></div>
+							<div class="tsk" v-if="item.L.tasks"><i class="fa fa-tasks"></i></div>
+							<div class="retol"><small>{{item.L.retol}}</small></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.M.dF, {hoy:item.M.hoy}]" @click="setDia(item.M.id0)" v-if="item.M">
+							<div ><strong>{{item.M.tag}}</strong></div>
+							<div class="tsk" v-if="item.M.tasks"><i class="fa fa-tasks"></i></div>
+							<div class="retol"><small>{{item.M.retol}}</small></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.X.dF, {hoy:item.X.hoy}]" @click="setDia(item.X.id0)" v-if="item.X">
+							<div ><strong>{{item.X.tag}}</strong></div>
+							<div class="tsk" v-if="item.X.tasks"><i class="fa fa-tasks"></i></div>
+							<div class="retol"><small>{{item.X.retol}}</small></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.J.dF, {hoy:item.J.hoy}]" @click="setDia(item.J.id0)" v-if="item.J">
+							<div ><strong>{{item.J.tag}}</strong></div>
+							<div class="tsk" v-if="item.J.tasks"><i class="fa fa-tasks"></i></div>
+							<div class="retol"><small>{{item.J.retol}}</small></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.V.dF, {hoy:item.V.hoy}]" @click="setDia(item.V.id0)" v-if="item.V">
+							<div ><strong>{{item.V.tag}}</strong></div>
+							<div class="tsk" v-if="item.V.tasks"><i class="fa fa-tasks"></i></div>
+							<div class="retol"><small>{{item.V.retol}}</small></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%" v-bind:class="[item.S.dF, {hoy:item.S.hoy}]" @click="setDia(item.S.id0)" v-if="item.S">
+							<div ><strong>{{item.S.tag}}</strong></div>
+							<div class="tsk" v-if="item.S.tasks"><i class="fa fa-tasks"></i></div>
+							<div class="retol"><small>{{item.S.retol}}</small></div>
+						</td>
+						<td v-else></td>
+
+						<td style="height:100%;color:red" v-bind:class="[item.D.dF, {hoy:item.D.hoy}]" @click="setDia(item.D.id0)" v-if="item.D">
+							<div ><strong>{{item.D.tag}}</strong></div>
+							<div class="tsk" v-if="item.D.tasks"><i class="fa fa-tasks"></i></div>
+							<div class="retol"><small>{{item.D.retol}}</small></div>
+						</td>
+						<td v-else></td>
+
+
+					</tr>
+				</tbody>
+			</table>
+		</div>  <!-- divMes -->
+
+
+<!---- ============================== SEMANA =====================-->
+		<div id="divSem" style="display:none">
+			<div>
+				<button  type="button" class="btn pull-left blanco" @click="atras()"><h1><i class="fa fa-angle-left"></i></h1></button>
+				<button  type="button" class="btn pull-right blanco" @click="avant()"><h1><i class="fa fa-angle-right"></i></h1></button>
+				<h1 class="text-center">{{tag}}</h1>
+			</div>
+			<table class="table table-bordered sem">
+				<thead>
+					<tr>
+						<th  class="text-center" v-for="head in heads" >{{head}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+
+						<td v-if="item.L">
+							<h1 v-bind:class="[item.L.dF, {hoy:item.L.hoy},{tsk:item.L.tasks}]">{{item.L.dia}}</h1>
+							<h3 @click="showMes(item.L)">{{item.L.mes}}</h3>
+							<h3 @click="showJar(item.L)">{{item.L.jar}}</h3>
+							<div class="retol"><small>{{item.M.retol}}</small></div>
+							<div ><img v-bind:src="item.L.fL"></div>
+							<div >{{item.L.hL}}</div>
+						</td>
+						<td v-else></td>
+
+						<td v-if="item.M">
+							<h1 v-bind:class="[item.M.dF, {hoy:item.M.hoy},{tsk:item.M.tasks}]">{{item.M.dia}}</h1>
+							<h3 @click="showMes(item.M)">{{item.M.mes}}</h3>
+							<h3 @click="showJar(item.M)">{{item.M.jar}}</h3>
+							<div class="retol"><small>{{item.M.retol}}</small></div>
+							<div ><img v-bind:src="item.M.fL"></div>
+							<div >{{item.M.hL}}</div>
+						</td>
+						<td v-else></td>
+
+						<td v-if="item.X">
+							<h1 v-bind:class="[item.X.dF, {hoy:item.X.hoy},{tsk:item.X.tasks}]">{{item.X.dia}}</h1>
+							<h3 @click="showMes(item.X)">{{item.X.mes}}</h3>
+							<h3 @click="showJar(item.X)">{{item.X.jar}}</h3>
+							<div ><img v-bind:src="item.X.fL"></div>
+							<div >{{item.X.hL}}</div>
+						</td>
+						<td v-else></td>
+
+						<td v-if="item.J">
+							<h1 v-bind:class="[item.J.dF, {hoy:item.J.hoy},{tsk:item.J.tasks}]">{{item.J.dia}}</h1>
+							<h3 @click="showMes(item.J)">{{item.J.mes}}</h3>
+							<h3 @click="showJar(item.J)">{{item.J.jar}}</h3>
+							<div ><img v-bind:src="item.J.fL"></div>
+							<div >{{item.J.hL}}</div>
+						</td>
+						<td v-else></td>
+
+						<td v-if="item.V">
+							<h1 v-bind:class="[item.V.dF, {hoy:item.V.hoy},{tsk:item.V.tasks}]">{{item.V.dia}}</h1>
+							<h3 @click="showMes(item.V)">{{item.V.mes}}</h3>
+							<h3 @click="showJar(item.V)">{{item.V.jar}}</h3>
+							<div ><img v-bind:src="item.V.fL"></div>
+							<div >{{item.V.hL}}</div>
+						</td>
+						<td v-else></td>
+
+						<td v-if="item.S">
+							<h1 v-bind:class="[item.S.dF, {hoy:item.S.hoy},{tsk:item.S.tasks}]">{{item.S.dia}}</h1>
+							<h3 @click="showMes(item.S)">{{item.S.mes}}</h3>
+							<h3 @click="showJar(item.S)">{{item.S.jar}}</h3>
+							<div ><img v-bind:src="item.S.fL"></div>
+							<div >{{item.S.hL}}</div>
+						</td>
+						<td v-else></td>
+
+						<td v-if="item.D">
+							<h1 v-bind:class="[item.D.dF, {hoy:item.D.hoy},{tsk:item.D.tasks}]">{{item.D.dia}}</h1>
+							<h3 @click="showMes(item.D)">{{item.D.mes}}</h3>
+							<h3 @click="showJar(item.D)">{{item.D.jar}}</h3>
+							<div ><img v-bind:src="item.D.fL"></div>
+							<div >{{item.D.hL}}</div>
+					</td>
+						<td v-else></td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		</div> <!-- md-12 -->
+		</div> <!-- row -->
+	</div>  <!-- container -->
+
+	<div id="appModal">
+		<modal v-bind:clase="modo" v-if="show" @close="show = false" @graba="graba()" @borra="borra()">
+			<h3 slot="header">{{conds.retol}}</h3>
+			<div slot="body">
+				<form	v-if="edit_t === 'USER'" class="form">
+					<input class="form-control" v-model="item.tag" type="text" name="usr"	placeholder="Usuario">
+					<span class="error" v-if="(!conds.valid.tag.ok)">{{conds.valid.tag.txt}}</span>
+					<input class="form-control" v-model="item.obj.pwd" type="text" name="pwd" placeholder="Password">
+					<span class="error" v-if="(!conds.valid.pwd.ok)">{{conds.valid.pwd.txt}}</span>
+					<input class="form-control" v-model="item.obj.conf" type="text" name="conf" placeholder="Confirmac.">
+					<span class="error" v-if="(!conds.valid.conf.ok)">{{conds.valid.conf.txt}}</span>
+				</form>
+
+				<form	v-if="edit_t === 'DIA'" class="form">
+					<div style="color:blue;text-align: center;font-size: 250%"><b>{{item.obj.dd}}{{item.status}}</b></div>
+					<input class="form-control" v-model="item.obj.retol" type="text" name="retol" placeholder="retol">
+			
+					<div class="radio">
+						<label><input v-model="item.obj.dF" type="radio" name="fest" value="LAB">Laborable</label>
+					</div>
+					<div class="radio">
+						<label><input v-model="item.obj.dF" type="radio" name="fest" value="DOM">Domingo</label>
+					</div>
+					<div class="radio">
+						<label><input v-model="item.obj.dF" type="radio" name="fest" value="LOC">Fest. local</label>
+					</div>
+					<div class="radio">
+						<label><input v-model="item.obj.dF" type="radio" name="fest" value="AUT">Fest. autonomía</label>
+					</div>
+					<div class="radio">
+						<label><input v-model="item.obj.dF" type="radio" name="fest" value="NAC">Fest. nacional</label>
+					</div>
+					<div class="radio">
+						<label><input v-model="item.obj.dF" type="radio" name="fest" value="ESP">Dia especial</label>
+					</div>
+					<input class="form-control" type="button" onclick="javascript:addTarea()" value="+ Tarea">
+				</form>
+
+				<form	v-if="edit_t === 'USER'" class="form">
+					<input class="form-control" v-model="item.tag" type="text" name="usr"	placeholder="Usuario">
+					<span class="error" v-if="(!conds.valid.tag.ok)">{{conds.valid.tag.txt}}</span>
+					<input class="form-control" v-model="item.obj.pwd" type="text" name="pwd" placeholder="Password">
+					<span class="error" v-if="(!conds.valid.pwd.ok)">{{conds.valid.pwd.txt}}</span>
+					<input class="form-control" v-model="item.obj.conf" type="text" name="conf" placeholder="Confirmac.">
+					<span class="error" v-if="(!conds.valid.conf.ok)">{{conds.valid.conf.txt}}</span>
+				</form>
+
+
+				<form	v-if="edit_t === 'CHKEO'" class="form">
+					<select size="8" class="form-control">
+						<option v-for="item in items" :value="item.obj.keo" @click="idAct = item.obj.keo">{{ item.tag }}</option>
+					</select>
+				</form>
+
+
+			</div> <!-- slot body -->
+		</modal>
+
+		<modal_lov v-bind:clase="modo" v-if="showLOV" @close="showLOV = false"  @borra="borra()">
+			<h3 slot="header">{{conds.retol}}</h3>
+			<div slot="body">
+				<form	v-if="edit_t === 'LISTA'" class="form" action="javascript:cargaKairos()">
+					<select size="8" :model="idAct" class="form-control">
+						<option v-for="item in items" @click="idAct = item._id" value="item._id">{{ item.meta.tag }}</option>
+					</select>
+					<input class="form-control" type="button" onclick="javascript:nuevoKairos()" value="Nuevo Kairos">
+					<input class="form-control" type="submit" value="Cargar Kairos">
+				</form>
+
+
+			</div> <!-- slot body -->
+		</modal_lov>
+
+	</div> <!-- appModal -->
+
+</body>
+</html>
