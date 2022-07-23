@@ -223,22 +223,11 @@ function	generaFilaSem(dias){
 
 }
 function getRetolsML(cod){
-/*
-	var tagsML = [];
-	console.log(utils.vgk.user.keo);
-	var raspa = utils.vgk.clasesML.getRaspa();
-	raspa.map(function(nodo){
-		console.log(nodo.rol);
-		if (nodo.rol == 'RETOLS'){
-			var nodosTag = utils.vgk.clasesML.getHijosNodo(nodo);
-			nodosTag.map(function(nTag){
-				if (nTag.rol == cod && nTag.obj.keo == utils.vgk.user.keo)
-					tagsML = nTag.obj.tags;
-			})
-		}
-	})
-*/
-	var tagsML = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+	var tagsML = [];	
+	if (cod == 'MM') 	
+		var tagsML = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+	else if (cod == 'WW')
+		var tagsML = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
 	return tagsML;
 }
 
@@ -248,7 +237,7 @@ function showJar(){
 	utils.r$('divSem').style.display = 'none';
 	utils.vgk.appMes.items = [];
 	utils.vgk.appJar.items = [[],[],[],[],[],[],[],[],[],[],[],[]];
-	var arrMeses = ['Enero*','Febrero*','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+	var arrMeses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 	var tagsML = getRetolsML('MM');
 	console.log(utils.o2s(tagsML));
 
