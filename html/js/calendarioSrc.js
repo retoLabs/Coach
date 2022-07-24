@@ -42,14 +42,14 @@ function initAppsAlmanak(){
 				this.jar++;
 				utils.vgk.appMes.jar = this.jar;
 				utils.vgk.appSem.jar = this.jar;
-				utils.vgk.almanak = new coach.Almanak('x',[],this.jar);
+				utils.vgk.almanak = new coach.Almanak('x',[],this.jar,this.tags);
 				showJar();
 				},
 			atras : function(){
 				this.jar--;
 				utils.vgk.appMes.jar = this.jar;
 				utils.vgk.appSem.jar = this.jar;
-				utils.vgk.almanak = new coach.Almanak('x',[],this.jar);
+				utils.vgk.almanak = new coach.Almanak('x',[],this.jar,this.tags);
 				showJar();
 				},
 			setDia : function(id0){
@@ -260,7 +260,6 @@ function showMes(mes){
 
 	var arrDias = ['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo'];
 	var tagsWW =  getRetolsML('WW');
-	console.log(utils.o2s(tagsWW));
 	if (tagsWW.length == 0) tagsWW = arrDias;
 	utils.vgk.appMes.heads = tagsWW;
 	utils.vgk.appMes.mes = parseInt(mes);
@@ -301,6 +300,7 @@ function creaCalendario(){
 	var tagsML = getRetolsML('MM');
 	utils.vgk.almanak = new coach.Almanak('x',[],jar,tagsML);
 	utils.vgk.appJar.jar = jar;
+	utils.vgk.appJar.tags = tagsML;
 	utils.vgk.appMes.jar = jar;
 	showMes(mes); 
 }
@@ -347,25 +347,18 @@ function setDia(id0){
 	vapps.editaItem('DIA',dia,grabaDia,borraDia);
 }
 //------------------------------------------------------------------- Crear Lista de Kairos
-function ecoGet1Kairos(xhr){
-	var loTopol = JSON.parse(xhr.responseText);
-	console.log(utils.o2s(loTopol.meta));
-	utils.vgk.kairos_id = loTopol._id;
+function ecoGet1Kairos(objDB){
+	utils.vgk.kairos_id = objDB._id;
 	utils.vgk.kairos = new tempo.rKairos("",[]);
-	utils.vgk.kairos.objDB2Clase(loTopol);
+	utils.vgk.kairos.objDB2Clase(objDB);
 	var crons = utils.vgk.kairos.getRaspa();
 	utils.vgk.almanak.mergeKairos(crons);
 	showMes(utils.vgk.appMes.mes);
 }
 
 function get1Kairos(_id){
-	utils.vgk.kairos_id = _id;
-	var params = vgApp.paramsXHR;
-	params.base = '/datos/';
-	params.eco = ecoGet1Kairos;
-	params.topolId = _id;
+	ajax.getTopol(_id,ecoGet1Kairos);
 
-	ajax.ajaxGet1Topol(params);
 	utils.vgk.appModal.showLOV = false;
 	return false;
 }
@@ -404,11 +397,11 @@ function nuevoKairos(){
 	if (!nom) return;
 	var jar = parseInt(utils.vgk.almanak.jar);
 	var raiz = new topol.rNodo(nom);
-	utils.vgk.kairos = new tempo.rKairos(nom,[raiz]);
+	var kairos = new tempo.rKairos(nom,[raiz]);
 	var an = new rDia(1,1,1,jar); //1 de enero, Año Nuevo
 	an.obj.retol = 'Año Nuevo';
 	an.obj.dF = 'NAC';
-	utils.vgk.kairos.addNodoHijo(raiz,an); 
+	kairos.addNodoHijo(raiz,an); 
 
 	var dp = tempo.pasqa(jar); // Date - domingo de Pascua
 	var vs0 = new Date(dp.setDate(dp.getDate()-2)); // Date - Viernes Santo (DP -2)
@@ -418,12 +411,12 @@ function nuevoKairos(){
 	console.log(utils.o2s(vs));
 	vs.obj.retol = 'V. Santo';
 	vs.obj.dF = 'NAC';
-	utils.vgk.kairos.addNodoHijo(raiz,vs);
+	kairos.addNodoHijo(raiz,vs);
 
 	var ft = new rDia(1,1,5,jar);//1 de mayo, Fiesta del Trabajo
 	ft.obj.retol = 'F. Trabajo';
 	ft.obj.dF = 'NAC';
-	utils.vgk.kairos.addNodoHijo(raiz,ft);
+	kairos.addNodoHijo(raiz,ft);
 	//15 de agosto, Asunción de la Virgen (FUNC pascua)
 
 	var dp = tempo.pasqa(jar); // Date - domingo de Pascua 
@@ -434,49 +427,45 @@ function nuevoKairos(){
 	console.log(utils.o2s(as));
 	as.obj.retol = 'Asc. Señor';
 	as.obj.dF = 'NAC';
-	utils.vgk.kairos.addNodoHijo(raiz,as);
+	kairos.addNodoHijo(raiz,as);
 
 	var dh = new rDia(12,12,10,jar); //12 de octubre, Día de la Hispanidad
 	dh.obj.retol = 'D. Hispanidad';
 	dh.obj.dF = 'NAC';
-	utils.vgk.kairos.addNodoHijo(raiz,dh);
+	kairos.addNodoHijo(raiz,dh);
 
 	var ts = new rDia(1,1,11,jar); //1 de noviembre, Día de Todos los Santos
 	ts.obj.retol = 'T. Santos';
 	ts.obj.dF = 'NAC';
-	utils.vgk.kairos.addNodoHijo(raiz,ts);
+	kairos.addNodoHijo(raiz,ts);
 
 	var dc = new rDia(6,6,12,jar); //6 de diciembre, Día de la Constitución
 	dc.obj.retol = 'D. Constitución';
 	dc.obj.dF = 'NAC';
-	utils.vgk.kairos.addNodoHijo(raiz,dc);
+	kairos.addNodoHijo(raiz,dc);
 
 	var dn = new rDia(25,25,12,jar); //25 de diciembre, Navidad
 	dn.obj.retol = 'Navidad';
 	dn.obj.dF = 'NAC';
-	utils.vgk.kairos.addNodoHijo(raiz,dn);
+	kairos.addNodoHijo(raiz,dn);
 
-	var params = vgApp.paramsXHR;
-	params.base = '/datos/';
-	params.eco = ecoNuevoKairos; 
-	params.txt = utils.o2s(utils.vgk.kairos.clase2ObjDB());
-	ajax.ajaxPostTopol(params);
+	ajax.grabaTopol(kairos,ecoNuevoKairos);
 }
 
 
-function ecoGetKairos(xhr){
-	var objs = JSON.parse(xhr.responseText);
-	utils.vgk.listaKairos = objs;
+function ecoGetKairos(kairos){
+	if (kairos.length > 0) utils.vgk.listaKairos = kairos;
+	else {
+		var ok = prompt('No hay Kairos. Crear uno ?');
+		if (ok){
+			utils.vgk.listaKairos = [];
+			nuevoKairos();
+		}
+	}
 }
 
 function ajaxGetKairos() {
-	var params = vgApp.paramsXHR;
-	params.base = '/metasByOrg/';
-	params.eco = ecoGetKairos;
-	params.iam = 'rKairos';
-	params.org = utils.vgk.user.org;
-
-	ajax.ajaxGetMetasByOrg(params);
+	ajax.listaTopols('rKairos',ecoGetKairos);
  }
 
 function ecoBorraKairos(xhr){

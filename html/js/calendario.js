@@ -31,17 +31,8 @@ window.addTarea = src.addTarea;
 //window.inputOK = agro.inputOK;
 //------------------------------------------------------------------- Init
 function sesionCalendarioOK(sesion){
-	/*
-	idioma.ajaxGetMenuPag('Calendario');
-	idioma.ajaxGetTextPag('Calendario');
-	idioma.ajaxGetClasesPag('Calendario');
-	
-	var _id = utils.vgk.params._id;
-	if (_id) src.get1Kairos(_id);
-	else src.ajaxGetKairos();
-*/
-	setTimeout(function(){src.creaCalendario();}, 500);
-	
+	src.creaCalendario();
+	src.ajaxGetKairos();
 }
 
 function initCalendario(){

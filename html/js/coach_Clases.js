@@ -43,6 +43,40 @@ export class Almanak extends tempo.rKronos {
 		return this.tagsMM[mes];
 	}
 
+	mergeKairos(crons){
+		var raspa = this.getRaspa();
+		crons.map(function(cron){
+			var dma = cron.obj.dd.split('/');
+			var d = parseInt(dma[0]);
+			var m = parseInt(dma[1]);
+			var a = parseInt(dma[2]);
+
+			if (a == this.jar){
+				var mes = raspa[m-1];
+				var idDia = mes.hijos[d-1];
+				var dia = this.getNodoById(idDia);
+				if (dia.obj.dS == 6 ){
+					console.log('Domingo: '+dia.obj.dd);
+					d++;
+				}  // si es domingo, lo pasa al dia siguiente
+				if (d < mes.hijos.length){  // si NO se pasa de mes, obtener el dia
+					var idDia = mes.hijos[d-1];
+					dia = this.getNodoById(idDia);
+					}
+				else {								// si se pasa de mes, recalcular mes y obtener dia 0
+					m++;
+					mes = raspa[m-1];
+					idDia = mes.hijos[0];
+					dia = this.getNodoById(idDia);
+				}
+				dia.obj.retol = cron.obj.retol;
+				dia.obj.dF = cron.obj.dF;
+				dia.obj.tasks = cron.obj.tasks;
+			}
+		}.bind(this))
+	}
+
+
 	getDiaByLapso(lapso){
 		var date = lapso.toDateI();
 		var ixMes = date.getMonth(); // 0-11
