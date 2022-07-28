@@ -27,6 +27,12 @@ export var vgApp = {
 export function goPag(pag,_id){
 	if (vgk.params) var idSess = vgk.params.idSess;
 	switch (pag){
+		case 'PROG':
+			window.open('temario.html?idSess='+idSess);
+			break;
+		case 'AGENDA':
+			window.open('agenda.html?idSess='+idSess);
+			break;
 	}
 }
 

@@ -101,7 +101,7 @@ function initAppsAlmanak(){
 		utils.vgk.appSem = new Vue({
 			el: '#divSem',
 			data : {
-				tag : '',
+				tag : 'Semana ',
 				sem : 0,
 				heads : [],
 				item : {},
@@ -279,14 +279,16 @@ function showSemana(sem){
 	var arrDias = ['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo'];
 	var tagsML =  getRetolsML('WW');
 	var dma = getRetolsML('DMA');
-	console.log(utils.o2s(tagsML));
+	console.log(utils.o2s(dma));
 	if (tagsML.length == 0) tagsML = arrDias;
 	var dias = utils.vgk.almanak.getDiasSem(sem);
 	var fila = generaFilaSem(dias);
 	if (fila){
 		utils.vgk.appSem.heads = tagsML;
 		utils.vgk.appSem.sem = sem;
-		utils.vgk.appSem.tag = utils.vgk.appMes.jar + ' ('+dma[1]+' '+sem+')';
+//		utils.vgk.appSem.tag = utils.vgk.appMes.jar + ' ('+dma[1]+' '+sem+')';
+		utils.vgk.appSem.tag = utils.vgk.appMes.jar + ' (Semana '+sem+')';
+
 		utils.vgk.appSem.actualiza(fila);
 	}
 

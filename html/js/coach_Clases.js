@@ -28,7 +28,7 @@ import clases from '/k1/libK1_Clases.js'
 
 //=================================================================== ALMANAQUE
 //------------------------------------------------------------------- Almanaque coach
-export class Almanak extends tempo.rKronos {
+class Almanak extends tempo.rKronos {
 	constructor (tag,nodos,jar,tagsMM){
 		super(tag,nodos,jar,tagsMM);
 		this.meta.iam = 'Almanak';
@@ -90,7 +90,37 @@ export class Almanak extends tempo.rKronos {
 
 }
 
+class Temario extends topol.rArbol {
+	constructor (tag,nodos){
+		super(tag,nodos);
+		this.meta.iam = 'Temario';
+	}
+
+	nodo2vue(nodo,vueObj){
+		vueObj.id0 = nodo.id0;
+		vueObj.tag = nodo.tag;
+		vueObj.iam = nodo.iam;
+		if (nodo.iam == 'Item' && nodo.obj.descrip.length>0) vueObj.descrip = '('+nodo.obj.descrip+')';
+		vueObj.hijos = [];
+		var n = nodo.hijos.length;
+		if (!n) return;
+		for (var i=0;i<n;i++){
+			var nodoH = this.getNodoById(nodo.hijos[i]);
+			var vueH = {};
+			this.nodo2vue(nodoH,vueH);
+			vueObj.hijos.push(vueH);
+		}
+	}
+
+	reto2vue(){
+		var vueObj = {};
+		var raiz = this.nodos[0];
+		this.nodo2vue(raiz,vueObj);
+		return vueObj;
+	}
+
+}
 
 export default {
-	Almanak
+	Almanak, Temario
 }
