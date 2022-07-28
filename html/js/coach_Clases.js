@@ -121,6 +121,21 @@ class Temario extends topol.rArbol {
 
 }
 
+export class ItemTemario extends topol.rNodo {
+	constructor (tag){
+		super(tag);
+		this.iam = 'ItemTemario';
+		this.obj = {
+			horas : 0
+		}
+	}
+
+	objDB2Clase(objDB){
+		super.objDB2Clase(objDB);
+		this.iam = 'ItemTemario';
+		this.obj = objDB.obj;
+	}
+}
 export default {
-	Almanak, Temario
+	Almanak, Temario, ItemTemario
 }

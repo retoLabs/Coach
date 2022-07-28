@@ -86,15 +86,16 @@ function showTemario(){
 }
 
 
-function ecoCargaTemario(xhr){
+function ecoCargaTemarioBD(xhr){
 	var filas = utils.csv2filas(xhr.responseText);
+	console.log(filas[0]);
 	var treeTemas = utils.vgk.topol;
 	var raiz = treeTemas.getRaiz();
 	var nodoMD = null;
 	var nodoUF = null;
 	var nodoUD = null; 
 	filas.map(function(fila){
-		var nodo = new topol.rNodo(fila.titulo);
+		var nodo = new coach.ItemTemario(fila.titulo);
 		if (fila.uf == "0" & fila.ud == "0" && fila.tema == "0"){
 			nodo.rol = 'MOD';
 			treeTemas.addNodoHijo(raiz,nodo);
@@ -117,14 +118,15 @@ function ecoCargaTemario(xhr){
 
 	})
 
-		console.log(utils.o2s(treeTemas));
-		showTemario();
+//		console.log(utils.o2s(treeTemas));
+	showTemario();
 
+	ajax.grabaTopol(utils.vgk.topol);
 }
 
 
-function cargaTemario(){
-	var stmt = "select * from temario order by 1,2,3,4 limit 15;";
+function cargaTemarioBD(){
+	var stmt = "select * from temario order by 1,2,3,4;";
 
 	var stmtB64 = Base64.encode(stmt);
 	var body = {
@@ -136,11 +138,12 @@ function cargaTemario(){
 	var params = vgApp.paramsXHR;
 	params.base = vgApp.sqlite.base;
 
-	params.eco = ecoCargaTemario; 
+	params.eco = ecoCargaTemarioBD; 
 
 	ajax.ajaxCmdShell(params,body);
 
 }
+
 function nuevaTopol(){
 	var t ={};
 	var tag = prompt('Tag?');
@@ -150,13 +153,24 @@ function nuevaTopol(){
 	if (t == {}) return null;
 	utils.vgk.topol = t;
 
-	cargaTemario();
-//	showTemario();
-//	grabaTopol();
+	cargaTemarioBD();
 }
 
 
 //------------------------------------------------------------------- Ajax
+
+
+function ecoCargaTemario(objDB){
+	utils.vgk.topolId = objDB._id;
+	var t = new coach.Temario('',[]);
+	t.objDB2Clase(objDB);
+	utils.vgk.topol = t;
+	showTemario();
+}
+
+function cargaTemario(elem){
+	ajax.getTopol(elem.value,ecoCargaTemario);
+}
 
 
 function ecoListaTemarios(objs){
@@ -168,7 +182,7 @@ function ecoListaTemarios(objs){
 	form.innerHTML = null;
 
 	var select = document.createElement('select');
-	select.onclick = function(){cargaTopol(select);};
+	select.onclick = function(){cargaTemario(select);};
 
 	objs.map(function(obj,ix){
 		var opt = document.createElement('option');
