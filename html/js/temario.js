@@ -27,7 +27,7 @@ function sesionTemarioOK(sesion){
 }
 
 function initTemario(){
-	vapps.initAppsGlobal();
+//	vapps.initAppsGlobal();
 
 	sess.validaSesion('usrMenu',sesionTemarioOK);// libK1_Sesion.js
 }

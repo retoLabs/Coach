@@ -96,29 +96,28 @@ class Temario extends topol.rArbol {
 		this.meta.iam = 'Temario';
 	}
 
-	nodo2vue(nodo,vueObj){
-		vueObj.id0 = nodo.id0;
-		vueObj.tag = nodo.tag;
-		vueObj.iam = nodo.iam;
-		if (nodo.iam == 'Item' && nodo.obj.descrip.length>0) vueObj.descrip = '('+nodo.obj.descrip+')';
-		vueObj.hijos = [];
-		var n = nodo.hijos.length;
-		if (!n) return;
-		for (var i=0;i<n;i++){
-			var nodoH = this.getNodoById(nodo.hijos[i]);
-			var vueH = {};
-			this.nodo2vue(nodoH,vueH);
-			vueObj.hijos.push(vueH);
+	calculaAuto(nodo){
+
+	}
+
+	getTemas(){
+		var temas = [];
+		this.nodos.map(function(nodo){
+			if (nodo.rol == 'TEMA') temas.push(nodo);
+		}.bind(this))
+		return temas;
+	}
+	calcula(tipo){
+		var temas = this.getTemas();
+		var total = 500;
+		switch(tipo){
+			case 'AUTO':
+				temas.map(function(tema){
+					tema.obj.horas = Math.round(total/temas.length)
+				})
+				break;
 		}
 	}
-
-	reto2vue(){
-		var vueObj = {};
-		var raiz = this.nodos[0];
-		this.nodo2vue(raiz,vueObj);
-		return vueObj;
-	}
-
 }
 
 export class ItemTemario extends topol.rNodo {

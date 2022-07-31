@@ -3,8 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Temario</title>
-
+	<title>Agenda</title>
 <!--  ==================== LOCAL ==================  -->
     <link rel="stylesheet" href="lib/bootstrap_335.min.css">
     <link rel="stylesheet" href="lib/font-awesome_430.min.css">
@@ -20,15 +19,35 @@
 		ol li span {background-color: 666;}
 		ul li input {font-weight: bold;}
 	</style>
-	<script type='module' src='js/temario.js'></script>
-
+	<script type='module' src='js/agenda.js'></script>
 </head>
 <body>
+	<nav class="navbar">
+
+		<ul class="nav navbar-nav">
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+					<span  >Cálculos</span>
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li>
+						<a href="javascript:calculos('AUTO')">
+							<span >Auto</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+
+	</nav> 
+
+
 <div class="container">
 	<div class="row">
 		<div  class="col-md-10">
 			<div id="lista"></div>
-			<div id="temario" class="list-group">
+			<div id="temario">
 				
 			</div>
 		</div>

@@ -29,7 +29,6 @@ function initAppsTemario(){
 
 function montaArbolUL(ul,nodo,editON,horas){
 	var li = utils.rEl$('li'); 
-//	li.classList.add("list-group-item");
 	if (nodo.hijos.length){
 		var btn = utils.rEl$('input');
 		btn.type = 'button';
@@ -44,10 +43,12 @@ function montaArbolUL(ul,nodo,editON,horas){
 	var txt = utils.rEl$('span');
 	txt.innerHTML = nodo.tag;
 	li.appendChild(txt);
-//	li.innerHTML = nodo.tag;
-	if (nodo.rol == 'TEMA' && horas) {
+
+//	li.innerHTML = nodo.tag;  NO. Machaca el boton !!!
+
+	if (nodo.rol != 'NODO' && horas) {
 		var horas = utils.rEl$('span');
-		horas.style.marginRight = '0px';
+		horas.style.float = 'right';
 		horas.innerHTML = nodo.obj.horas;
 		li.appendChild(horas);
 	}
@@ -70,7 +71,7 @@ function montaArbolUL(ul,nodo,editON,horas){
 		li.appendChild(ulx);
 		var hijos = utils.vgk.topol.getHijosNodo(nodo);
 		hijos.map(function(nodox){
-			montaArbolUL(ulx,nodox,editON);
+			montaArbolUL(ulx,nodox,editON,horas);
 		})
 
 	}
@@ -88,87 +89,22 @@ function showTemario(){
 	var h3 = utils.rEl$('h3'); h3.innerHTML = tag;
 	divShow.appendChild(h3);
 	var ul = utils.rEl$('ul');
-	ul.style.listStyle = 'none';
+//	ul.style.listStyle = 'none';
 	var raiz = utils.vgk.topol.getRaiz();
-	montaArbolUL(ul,raiz,false,false);
+	montaArbolUL(ul,raiz,false,true);
 	divShow.appendChild(ul);
 }
+//------------------------------------------------------------------- Calculos
 
-
-function ecoCargaTemarioBD(xhr){
-	var filas = utils.csv2filas(xhr.responseText);
-	console.log(filas[0]);
-	var treeTemas = utils.vgk.topol;
-	var raiz = treeTemas.getRaiz();
-	var nodoMD = null;
-	var nodoUF = null;
-	var nodoUD = null; 
-	filas.map(function(fila){
-		var nodo = new coach.ItemTemario(fila.titulo);
-		if (fila.uf == "0" & fila.ud == "0" && fila.tema == "0"){
-			nodo.rol = 'MOD';
-
-			treeTemas.addNodoHijo(raiz,nodo);
-			nodoMD = nodo;
-		}
-		else if (fila.uf > "0" & fila.ud == "0" && fila.tema == "0"){
-			nodo.rol = 'UF';
-			treeTemas.addNodoHijo(nodoMD,nodo);
-			nodoUF = nodo;
-		}
-		else if (fila.uf > "0" & fila.ud > "0" && fila.tema == "0"){
-			nodo.rol = 'UD';
-			treeTemas.addNodoHijo(nodoUF,nodo);
-			nodoUD = nodo;
-		}
-		else if (fila.uf > "0" & fila.ud > "0" && fila.tema > "0"){
-			nodo.rol = 'TEMA';
-			treeTemas.addNodoHijo(nodoUD,nodo);
-		}
-
-	})
-
-//		console.log(utils.o2s(treeTemas));
-	showTemario();
-
-	ajax.grabaTopol(utils.vgk.topol);
-}
-
-
-function cargaTemarioBD(){
-	var stmt = "select * from temario order by 1,2,3,4;";
-
-	var stmtB64 = Base64.encode(stmt);
-	var body = {
-		id : 1234567, //vgApp.encript.sessId,
-		path : vgApp.sqlite.pathDB,
-		db   : vgApp.sqlite.repoDB,
-		stmt : stmtB64
+function calculos(tipo){
+	switch(tipo){
+		case 'AUTO':
+			utils.vgk.topol.calcula('AUTO');
+			showTemario();
+			break;
 	}
-	var params = vgApp.paramsXHR;
-	params.base = vgApp.sqlite.base;
-
-	params.eco = ecoCargaTemarioBD; 
-
-	ajax.ajaxCmdShell(params,body);
-
 }
-
-function nuevaTopol(){
-	var t ={};
-	var tag = prompt('Tag?');
-	if (!tag) return null;
-	var raiz = new topol.rNodo(tag);
-	t = new coach.Temario(tag,[raiz]);
-	if (t == {}) return null;
-	utils.vgk.topol = t;
-
-	cargaTemarioBD();
-}
-
-
 //------------------------------------------------------------------- Ajax
-
 
 function ecoCargaTemario(objDB){
 	utils.vgk.topolId = objDB._id;
@@ -185,7 +121,7 @@ function cargaTemario(elem){
 
 function ecoListaTemarios(objs){
 	if (objs.length == 0) {
-		nuevaTopol();
+		alert('No hay temarios definidos')
 		return false;
 	}
 	var form = utils.r$('lista');
@@ -207,4 +143,4 @@ function listaTemarios(){
 	ajax.listaTopols('Temario',ecoListaTemarios);
 }
 
-export default {listaTemarios}
+export default {listaTemarios, calculos}
