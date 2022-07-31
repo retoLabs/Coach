@@ -158,7 +158,7 @@ function nuevaTopol(){
 	var t ={};
 	var tag = prompt('Tag?');
 	if (!tag) return null;
-	var raiz = new topol.rNodo(tag);
+	var raiz = new coach.ItemTemario(tag);
 	t = new coach.Temario(tag,[raiz]);
 	if (t == {}) return null;
 	utils.vgk.topol = t;

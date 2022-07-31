@@ -107,16 +107,35 @@ class Temario extends topol.rArbol {
 		}.bind(this))
 		return temas;
 	}
+	sumaRecursiva(nodo){
+		if (nodo.hijos.length){
+			var hijos = this.getHijosNodo(nodo);
+			for (var i=0;i<hijos.length;i++){
+				this.sumaRecursiva(hijos[i]);
+				nodo.obj.horas += hijos[i].obj.horas;
+			}
+		}
+	}
+
+	resetNodos(){
+		this.nodos.map(function(nodo){
+			if (nodo.rol != 'TEMA') nodo.obj.horas = 0;
+		}.bind(this))
+	}
+
 	calcula(tipo){
 		var temas = this.getTemas();
 		var total = 500;
 		switch(tipo){
 			case 'AUTO':
 				temas.map(function(tema){
-					tema.obj.horas = Math.round(total/temas.length)
+					tema.obj.horas = Math.round(total/temas.length);
 				})
 				break;
 		}
+		var raiz = this.getRaiz();
+		this.resetNodos();
+		this.sumaRecursiva(raiz);
 	}
 }
 

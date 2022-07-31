@@ -46,10 +46,19 @@ function montaArbolUL(ul,nodo,editON,horas){
 
 //	li.innerHTML = nodo.tag;  NO. Machaca el boton !!!
 
-	if (nodo.rol != 'NODO' && horas) {
+	if (horas) {
 		var horas = utils.rEl$('span');
+		horas.id = nodo.id0;
 		horas.style.float = 'right';
+		horas.contentEditable = true;
 		horas.innerHTML = nodo.obj.horas;
+		horas.onblur = function(ev){
+			nodo.obj.horas = parseInt(ev.target.innerHTML);
+			var raiz = utils.vgk.topol.getRaiz();
+			utils.vgk.topol.resetNodos();
+			utils.vgk.topol.sumaRecursiva(raiz);
+			showTemario();
+		}
 		li.appendChild(horas);
 	}
 
@@ -67,7 +76,6 @@ function montaArbolUL(ul,nodo,editON,horas){
 		var ulx = null;
 		if (nodo.rol == 'UD') ulx = utils.rEl$('ol');
 		else ulx = utils.rEl$('ul');
-//		ulx.classList.add("list-group");
 		li.appendChild(ulx);
 		var hijos = utils.vgk.topol.getHijosNodo(nodo);
 		hijos.map(function(nodox){
