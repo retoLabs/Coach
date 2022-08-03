@@ -350,6 +350,7 @@ function setDia(id0){
 }
 //------------------------------------------------------------------- Crear Lista de Kairos
 function ecoGet1Kairos(objDB){
+	console.log(utils.o2s(objDB));
 	utils.vgk.kairos_id = objDB._id;
 	utils.vgk.kairos = new tempo.rKairos("",[]);
 	utils.vgk.kairos.objDB2Clase(objDB);
@@ -382,15 +383,11 @@ function ecoNuevoKairos(xhr){
 	utils.vgk.appModal.showLOV = false;
 }
 function ecoUpdateKairos(xhr){
-	console.log('Actualizado Kairos ');
+	console.log('Actualizado Kairos ',xhr.responseText);
+
 }
 function updateKairos(){
-	var params = vgApp.paramsXHR;
-	params.base = '/datos/';
-	params.eco = ecoUpdateKairos; 
-	params.txt = utils.o2s(utils.vgk.kairos.clase2ObjDB());
-	params.topolId = utils.vgk.kairos_id;
-	ajax.ajaxPutTopol(params);
+	ajax.updateTopol(utils.vgk.kairos,utils.vgk.kairos_id,ecoUpdateKairos);
 }
 
 
@@ -481,11 +478,7 @@ function borraKairos(){
 	if (!ok) return;
 
 	var _id = utils.vgk.appModal.idAct;
-	var params = vgApp.paramsXHR;
-	params.base = '/datos/';
-	params.eco = ecoBorraKairos; 
-	params.topolId = _id;
-	ajax.ajaxDeleteTopol(params);
+	ajax.borraTopol(_id,ecoBorraKairos);
 	return false;
 }
 

@@ -29,6 +29,7 @@ window.cargaKairos = src.cargaKairos;
 window.nuevoKairos = src.nuevoKairos;
 window.addTarea = src.addTarea;
 window.calculos = src.calculos;
+window.updateTemario = src.updateTemario;
 //------------------------------------------------------------------- Init
 function sesionAgendaOK(sesion){
 	utils.vgk.user = {'org':'DEMO01','keo':''};

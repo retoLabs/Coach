@@ -34,9 +34,10 @@
 		.jar tr th td { width: 100% !important;height:60% !important;}
 		h3 {cursor : pointer;}
 		.LAB {color:black;}
+		.LEC {color:blue;}
 		.DOM {color:red;}
-		.LOC {color:blue;}
-		.AUT {color:green;}
+		.LOC {color:gray;}
+		.AUT {color:gray;}
 		.NAC {color:red;}
 		.hoy {border:3px gray solid !important}
 		.tsk {font-size:300%;color:gray;text-align: center;margin:0px;padding:0px;}
@@ -907,7 +908,7 @@
 						<label><input v-model="item.obj.dF" type="radio" name="fest" value="LAB">Laborable</label>
 					</div>
 					<div class="radio">
-						<label><input v-model="item.obj.dF" type="radio" name="fest" value="DOM">Domingo</label>
+						<label><input v-model="item.obj.dF" type="radio" name="fest" value="LEC">Lectivo</label>
 					</div>
 					<div class="radio">
 						<label><input v-model="item.obj.dF" type="radio" name="fest" value="LOC">Fest. local</label>
@@ -923,23 +924,6 @@
 					</div>
 					<input class="form-control" type="button" onclick="javascript:addTarea()" value="+ Tarea">
 				</form>
-
-				<form	v-if="edit_t === 'USER'" class="form">
-					<input class="form-control" v-model="item.tag" type="text" name="usr"	placeholder="Usuario">
-					<span class="error" v-if="(!conds.valid.tag.ok)">{{conds.valid.tag.txt}}</span>
-					<input class="form-control" v-model="item.obj.pwd" type="text" name="pwd" placeholder="Password">
-					<span class="error" v-if="(!conds.valid.pwd.ok)">{{conds.valid.pwd.txt}}</span>
-					<input class="form-control" v-model="item.obj.conf" type="text" name="conf" placeholder="Confirmac.">
-					<span class="error" v-if="(!conds.valid.conf.ok)">{{conds.valid.conf.txt}}</span>
-				</form>
-
-
-				<form	v-if="edit_t === 'CHKEO'" class="form">
-					<select size="8" class="form-control">
-						<option v-for="item in items" :value="item.obj.keo" @click="idAct = item.obj.keo">{{ item.tag }}</option>
-					</select>
-				</form>
-
 
 			</div> <!-- slot body -->
 		</modal>

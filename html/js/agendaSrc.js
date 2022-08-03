@@ -50,14 +50,19 @@ function montaArbolUL(ul,nodo,editON,horas){
 		var horas = utils.rEl$('span');
 		horas.id = nodo.id0;
 		horas.style.float = 'right';
-		horas.contentEditable = true;
 		horas.innerHTML = nodo.obj.horas;
-		horas.onblur = function(ev){
-			nodo.obj.horas = parseInt(ev.target.innerHTML);
-			var raiz = utils.vgk.topol.getRaiz();
-			utils.vgk.topol.resetNodos();
-			utils.vgk.topol.sumaRecursiva(raiz);
-			showTemario();
+		if (nodo.rol== 'TEMA'){
+			horas.contentEditable = true;
+			horas.onblur = function(ev){
+				var nou = parseInt(ev.target.innerHTML);
+				if (!isNaN(nou) && nou > 0 && nou < 100){
+					nodo.obj.horas = nou;
+					var raiz = utils.vgk.topol.getRaiz();
+					utils.vgk.topol.resetNodos();
+					utils.vgk.topol.sumaRecursiva(raiz);
+				};
+				showTemario();
+			}
 		}
 		li.appendChild(horas);
 	}
@@ -113,6 +118,13 @@ function calculos(tipo){
 	}
 }
 //------------------------------------------------------------------- Ajax
+function ecoUpdateTemario(xhr){
+	console.log('Update:', xhr.responseText);
+}
+
+function updateTemario(){
+	ajax.updateTopol(utils.vgk.topol,utils.vgk.topolId,ecoUpdateTemario)
+}
 
 function ecoCargaTemario(objDB){
 	utils.vgk.topolId = objDB._id;
@@ -151,4 +163,4 @@ function listaTemarios(){
 	ajax.listaTopols('Temario',ecoListaTemarios);
 }
 
-export default {listaTemarios, calculos}
+export default {listaTemarios, calculos, updateTemario}
