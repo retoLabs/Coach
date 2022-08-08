@@ -33,6 +33,9 @@
 					<i class="fa fa-calculator" style="font-size: 200%;"></i>
 					<span class="caret"></span>
 				</a>
+	      <li><a href="javascript:updateTemario()">
+	      	<i class="fa fa-plus" style="font-size: 200%;"></i>
+	      </a></li>
 				<ul class="dropdown-menu">
 					<li>
 						<a href="javascript:calculos('AUTO')">
@@ -49,6 +52,10 @@
 	      	<i class="fa fa-calendar" style="font-size: 200%;"></i>
 	      </a></li>
 
+	      <li><a href="javascript:editTemario()">
+	      	<i class="fa fa-pencil" style="font-size: 200%;"></i>
+	      </a></li>
+
 		</ul>
 		</div>
 	</nav> 
@@ -56,11 +63,30 @@
 
 <div class="container">
 	<div class="row">
+		<div  class="col-md-6">
+			<div id="listaTemarios"></div>
+		</div>
+		<div  class="col-md-6">
+			<div id="listaKairos"></div>
+		</div>
+
+	<div class="row">
 		<div  class="col-md-10">
-			<div id="lista"></div>
 			<div id="temario">
 				
 			</div>
+		</div>
+		<div class="col-md-2">
+			<form id="frmEdit">
+				<input type="text" id="tag">Tag <br>
+				<input type="text" id="id0">Id0 <br>
+				<input type="text" id="rol">Rol <br>
+				<input type="button" class="btn btn-primary btn-block" onclick="editAction('GRABA')" value="Graba">
+				<input type="button" class="btn btn-danger btn-block" onclick="editAction('BORRA')" value="Borra"><br>
+				<input type="button" class="btn btn-primary btn-block" onclick="editAction('SUBE')"  value="Sube">
+				<input type="button" class="btn btn-primary btn-block" onclick="editAction('BAJA')"  value="Baja"><br>
+				<input type="button" class="btn btn-primary btn-block" onclick="editAction('+HIJO')" value="+Hijo"><br>
+			</form>
 		</div>
 	</div> <!-- row -->
 </div> <!-- container -->

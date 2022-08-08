@@ -56,7 +56,7 @@ class Almanak extends tempo.rKronos {
 				var idDia = mes.hijos[d-1];
 				var dia = this.getNodoById(idDia);
 				if (dia.obj.dS == 6 ){
-					console.log('Domingo: '+dia.obj.dd);
+					console.log('Merge Cronos Fiesta Domingo: '+dia.obj.dd);
 					d++;
 				}  // si es domingo, lo pasa al dia siguiente
 				if (d < mes.hijos.length){  // si NO se pasa de mes, obtener el dia
@@ -154,6 +154,26 @@ export class ItemTemario extends topol.rNodo {
 		this.obj = objDB.obj;
 	}
 }
+
+export class TaskClase extends topol.rNodo {
+	constructor (tag){
+		super(tag);
+		this.iam = 'TaskClase';
+		this.obj = {
+			horas : 0,
+			dia: '',
+			ini : '',
+			fin : ''
+		}
+	}
+
+	objDB2Clase(objDB){
+		super.objDB2Clase(objDB);
+		this.iam = 'TaskClase';
+		this.obj = objDB.obj;
+	}
+}
+
 export default {
 	Almanak, Temario, ItemTemario
 }

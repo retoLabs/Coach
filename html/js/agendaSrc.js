@@ -3,6 +3,7 @@ import utils from '/k1/libK1_Utils.js'
 import sess  from '/k1/libK1_Sesion.js'
 import ajax  from '/k1/libK1_Ajax.js'
 import topol from '/k1/libK1_Topol.js'
+import tempo  from '/k1/libK1_Tiempo.js'
 
 import {vgApp,goPag} from '/js/coach_VGlob.js'
 import coach   from  '/js/coach_Clases.js'
@@ -27,14 +28,29 @@ function initAppsTemario(){
 	}
 }
 
-function montaArbolUL(ul,nodo,editON,horas){
+function agendarTemario(){
+	alert('agendarTemario');
+}
+
+//=================================================================== Temarios
+
+function calculos(tipo){
+	switch(tipo){
+		case 'AUTO':
+			utils.vgk.temario.calcula('AUTO');
+			showTemario();
+			break;
+	}
+}
+
+function montaArbolTemario(ul,nodo,editON,horas){
 	var li = utils.rEl$('li'); 
 	if (nodo.hijos.length){
 		var btn = utils.rEl$('input');
 		btn.type = 'button';
 		btn.value = (nodo.stat == 'EXPAN')? '+' : '-';
 		btn.onclick = function (){
-			utils.vgk.topol.commuta(nodo);
+			utils.vgk.temario.commuta(nodo);
 			showTemario();
 		}
 		li.appendChild(btn);
@@ -42,9 +58,16 @@ function montaArbolUL(ul,nodo,editON,horas){
 
 	var txt = utils.rEl$('span');
 	txt.innerHTML = nodo.tag;
+	txt.contentEditable = true;
+	txt.onblur = function(ev){
+		var nou = ev.target.innerHTML;
+		nodo.tag = nou;
+		showTemario();
+		}
+
 	li.appendChild(txt);
 
-//	li.innerHTML = nodo.tag;  NO. Machaca el boton !!!
+//	li.innerHTML = nodo.tag;  NO!. Machaca el boton !!!
 
 	if (horas) {
 		var horas = utils.rEl$('span');
@@ -57,9 +80,9 @@ function montaArbolUL(ul,nodo,editON,horas){
 				var nou = parseInt(ev.target.innerHTML);
 				if (!isNaN(nou) && nou > 0 && nou < 100){
 					nodo.obj.horas = nou;
-					var raiz = utils.vgk.topol.getRaiz();
-					utils.vgk.topol.resetNodos();
-					utils.vgk.topol.sumaRecursiva(raiz);
+					var raiz = utils.vgk.temario.getRaiz();
+					utils.vgk.temario.resetNodos();
+					utils.vgk.temario.sumaRecursiva(raiz);
 				};
 				showTemario();
 			}
@@ -82,9 +105,9 @@ function montaArbolUL(ul,nodo,editON,horas){
 		if (nodo.rol == 'UD') ulx = utils.rEl$('ol');
 		else ulx = utils.rEl$('ul');
 		li.appendChild(ulx);
-		var hijos = utils.vgk.topol.getHijosNodo(nodo);
+		var hijos = utils.vgk.temario.getHijosNodo(nodo);
 		hijos.map(function(nodox){
-			montaArbolUL(ulx,nodox,editON,horas);
+			montaArbolTemario(ulx,nodox,editON,horas);
 		})
 
 	}
@@ -95,42 +118,32 @@ function montaArbolUL(ul,nodo,editON,horas){
 
 
 function showTemario(){
-	if (!utils.vgk.topol) return;
+	if (!utils.vgk.temario) return;
 	var divShow = utils.r$('temario');
 	divShow.innerHTML = null;
-	var tag = utils.vgk.topol.meta.tag;
+	var tag = utils.vgk.temario.meta.tag;
 	var h3 = utils.rEl$('h3'); h3.innerHTML = tag;
 	divShow.appendChild(h3);
 	var ul = utils.rEl$('ul');
 //	ul.style.listStyle = 'none';
-	var raiz = utils.vgk.topol.getRaiz();
-	montaArbolUL(ul,raiz,false,true);
+	var raiz = utils.vgk.temario.getRaiz();
+	montaArbolTemario(ul,raiz,false,true);
 	divShow.appendChild(ul);
 }
-//------------------------------------------------------------------- Calculos
 
-function calculos(tipo){
-	switch(tipo){
-		case 'AUTO':
-			utils.vgk.topol.calcula('AUTO');
-			showTemario();
-			break;
-	}
-}
-//------------------------------------------------------------------- Ajax
 function ecoUpdateTemario(xhr){
 	console.log('Update:', xhr.responseText);
 }
 
 function updateTemario(){
-	ajax.updateTopol(utils.vgk.topol,utils.vgk.topolId,ecoUpdateTemario)
+	ajax.updateTopol(utils.vgk.temario,utils.vgk.temarioId,ecoUpdateTemario)
 }
 
 function ecoCargaTemario(objDB){
-	utils.vgk.topolId = objDB._id;
+	utils.vgk.temarioId = objDB._id;
 	var t = new coach.Temario('',[]);
 	t.objDB2Clase(objDB);
-	utils.vgk.topol = t;
+	utils.vgk.temario = t;
 	showTemario();
 }
 
@@ -144,23 +157,134 @@ function ecoListaTemarios(objs){
 		alert('No hay temarios definidos')
 		return false;
 	}
-	var form = utils.r$('lista');
-	form.innerHTML = null;
+	var listT = utils.r$('listaTemarios');
+	listT.innerHTML = null;
+	var form = utils.rEl$('form');
 
 	var select = document.createElement('select');
-	select.onclick = function(){cargaTemario(select);};
 
 	objs.map(function(obj,ix){
 		var opt = document.createElement('option');
 		opt.value = obj._id;
 		opt.text = obj.meta.tag;
+		opt.onclick = function(){cargaTemario(select);};
 		select.appendChild(opt);
 	})
 	form.appendChild(select);
+	listT.appendChild(form);
+
+	listaKairos();
 }
 
 function listaTemarios(){
 	ajax.listaTopols('Temario',ecoListaTemarios);
 }
 
-export default {listaTemarios, calculos, updateTemario}
+
+//=================================================================== Kairos
+
+function montaArbolKairos(ul,nodo,editON){
+	var li = utils.rEl$('li'); 
+	if (nodo.hijos.length){
+		var btn = utils.rEl$('input');
+		btn.type = 'button';
+		btn.value = (nodo.stat == 'EXPAN')? '+' : '-';
+		btn.onclick = function (){
+			utils.vgk.kairos.commuta(nodo);
+			showKairos();
+		}
+		li.appendChild(btn);
+	}
+
+	var txt = utils.rEl$('span');
+	if (nodo.obj) txt.innerHTML = nodo.obj.dd;
+	else txt.innerHTML = nodo.tag;
+	li.appendChild(txt);
+
+//	li.innerHTML = nodo.tag;  NO!. Machaca el boton !!!
+
+	if (editON){
+		li.onclick = function(ev){
+			ev.stopImmediatePropagation();
+			utils.r$('tag').value = nodo.tag;
+			utils.r$('id0').value = nodo.id0;
+		}
+	}
+	ul.appendChild(li);
+
+
+	if (nodo.hijos.length && nodo.stat == 'EXPAN'){
+		var ulx = null;
+		ulx = utils.rEl$('ul');
+		li.appendChild(ulx);
+		var hijos = utils.vgk.kairos.getHijosNodo(nodo);
+		hijos.map(function(nodox){
+			montaArbolKairos(ulx,nodox,editON);
+		})
+
+	}
+
+
+}
+
+function showKairos(){
+	if (!utils.vgk.kairos) return;
+	var divShow = utils.r$('temario');
+	divShow.innerHTML = null;
+	var tag = utils.vgk.kairos.meta.tag;
+	var h3 = utils.rEl$('h3'); h3.innerHTML = tag;
+	divShow.appendChild(h3);
+	var ul = utils.rEl$('ul');
+//	ul.style.listStyle = 'none';
+	var raiz = utils.vgk.kairos.getRaiz();
+	montaArbolKairos(ul,raiz,false,true);
+	divShow.appendChild(ul);
+}
+
+function ecoCargaKairos(objDB){
+	utils.vgk.kairosId = objDB._id;
+	var t = new tempo.rKairos('',[]);
+	t.objDB2Clase(objDB);
+	utils.vgk.kairos = t;
+	showKairos();
+}
+
+function cargaKairos(elem){
+	ajax.getTopol(elem.value,ecoCargaKairos);
+}
+
+
+function ecoListaKairos(objs){
+	if (objs.length == 0) {
+		alert('No hay kairos definidos')
+		return false;
+	}
+	var listK = utils.r$('listaKairos');
+	listK.innerHTML = null;
+	var form = utils.rEl$('form');
+
+	var select = document.createElement('select');
+
+	objs.map(function(obj,ix){
+		var opt = document.createElement('option');
+		opt.value = obj._id;
+		opt.text = obj.meta.tag;
+		opt.onclick = function(){cargaKairos(select);};
+		select.appendChild(opt);
+	})
+	form.appendChild(select);
+	listK.appendChild(form);
+}
+
+function listaKairos(){
+	ajax.listaTopols('rKairos',ecoListaKairos);
+}
+
+//=================================================================== Exports
+export default {
+	listaTemarios,
+	listaKairos,
+	calculos, 
+	updateTemario,
+	agendarTemario
+	}

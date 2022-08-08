@@ -11,12 +11,13 @@ Esto es, una serie de tareas, con un horario, y un contenido pedagógico concret
 import utils  from '/k1/libK1_Utils.js'
 import sess   from '/k1/libK1_Sesion.js'
 import vapps  from '/k1/libK1_vApps.js'
+import {rDia} from '/k1/libK1_Tiempo.js'
 
 import src    from '/js/agendaSrc.js'
 import {ItemTemario}   from  '/js/coach_Clases.js'
 
 import {vgApp,goPag} from '/js/coach_VGlob.js'
-import {rKeos,rLang,rNodoClase,rTxtML,rTagML,rUsuario} from '/k1/libK1_Clases.js'
+import {rUsuario} from '/k1/libK1_Clases.js'
 
 
 window.vgApp = vgApp;
@@ -24,16 +25,20 @@ window.goPag = goPag;
 window.ItemTemario = ItemTemario;
 
 
+window.rDia = rDia;
+
 window.showListaKairos = src.showListaKairos;
 window.cargaKairos = src.cargaKairos;
 window.nuevoKairos = src.nuevoKairos;
 window.addTarea = src.addTarea;
 window.calculos = src.calculos;
 window.updateTemario = src.updateTemario;
+window.agendarTemario = src.agendarTemario;
 //------------------------------------------------------------------- Init
 function sesionAgendaOK(sesion){
 	utils.vgk.user = {'org':'DEMO01','keo':''};
 	src.listaTemarios();
+//	src.listaKairos();
 }
 
 function initAgenda(){
