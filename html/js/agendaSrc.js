@@ -235,9 +235,9 @@ function showKairos(){
 	var h3 = utils.rEl$('h3'); h3.innerHTML = tag;
 	divShow.appendChild(h3);
 	var ul = utils.rEl$('ul');
-//	ul.style.listStyle = 'none';
+	utils.vgk.kairos.sortRaspa();
 	var raiz = utils.vgk.kairos.getRaiz();
-	montaArbolKairos(ul,raiz,false,true);
+	montaArbolKairos(ul,raiz,false);
 	divShow.appendChild(ul);
 }
 

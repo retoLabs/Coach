@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Pba sort</title>
+
+	<script type="text/javascript">
+		function pbaSortLocale(){
+			var pba = [{txt:'a'},{txt:'d'},{txt:'f'},{txt:'b'},{txt:'z'},{txt:'j'}];
+			pba.sort((a, b) => a.txt.localeCompare(b.txt));
+			console.log(pba);
+		}
+		
+	</script>
+
+</head>
+<body onload="pbaSortLocale()">
+
+</body>
+</html>
