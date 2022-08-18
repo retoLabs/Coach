@@ -28,6 +28,7 @@ function initAppsAlmanak(){
 		utils.vgk.appJar = new Vue({
 			el: '#divJar',
 			data : {
+				vista :'JAR',
 				tags : [],
 				jar : null,
 				mes : 0,
@@ -43,6 +44,7 @@ function initAppsAlmanak(){
 				utils.vgk.appMes.jar = this.jar;
 				utils.vgk.appSem.jar = this.jar;
 				utils.vgk.almanak = new coach.Almanak('x',[],this.jar,this.tags);
+				setKairos();
 				showJar();
 				},
 			atras : function(){
@@ -50,6 +52,7 @@ function initAppsAlmanak(){
 				utils.vgk.appMes.jar = this.jar;
 				utils.vgk.appSem.jar = this.jar;
 				utils.vgk.almanak = new coach.Almanak('x',[],this.jar,this.tags);
+				setKairos();
 				showJar();
 				},
 			setDia : function(id0){
@@ -239,7 +242,6 @@ function showJar(){
 	utils.vgk.appJar.items = [[],[],[],[],[],[],[],[],[],[],[],[]];
 	var arrMeses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 	var tagsML = getRetolsML('MM');
-	console.log(utils.o2s(tagsML));
 
 	if (tagsML.length == 0) tagsML = arrMeses;
 	utils.vgk.appJar.tags = tagsML;
@@ -270,6 +272,7 @@ function showMes(mes){
 	var dias = utils.vgk.almanak.getDiasMes(mes);
 	var filas = generaFilasMes(dias);
 	utils.vgk.appMes.actualiza(filas);
+	utils.vgk.appJar.vista = 'MES';
 }
 
 function showSemana(sem){
@@ -304,7 +307,8 @@ function creaCalendario(){
 	utils.vgk.appJar.jar = jar;
 	utils.vgk.appJar.tags = tagsML;
 	utils.vgk.appMes.jar = jar;
-	showMes(mes); 
+	showJar(jar);
+//	showMes(mes); 
 }
 //------------------------------------------------------------------- Kairos
 /* Cronos se genera cada vez. Los id0s cambian, por tanto
@@ -349,14 +353,19 @@ function setDia(id0){
 	vapps.editaItem('DIA',dia,grabaDia,borraDia);
 }
 //------------------------------------------------------------------- Crear Lista de Kairos
+function setKairos(){
+	if (!utils.vgk.kairos) return;
+	var crons = utils.vgk.kairos.getRaspa();
+	utils.vgk.almanak.mergeKairos(crons);
+}
+
 function ecoGet1Kairos(objDB){
-	console.log(utils.o2s(objDB));
 	utils.vgk.kairos_id = objDB._id;
 	utils.vgk.kairos = new tempo.rKairos("",[]);
 	utils.vgk.kairos.objDB2Clase(objDB);
-	var crons = utils.vgk.kairos.getRaspa();
-	utils.vgk.almanak.mergeKairos(crons);
-	showMes(utils.vgk.appMes.mes);
+	setKairos();
+	if (utils.vgk.appJar.vista == 'JAR') showJar();
+	else showMes(utils.vgk.appMes.mes);
 }
 
 function get1Kairos(_id){
@@ -397,17 +406,23 @@ function nuevoKairos(){
 	var jar = parseInt(utils.vgk.almanak.jar);
 	var raiz = new topol.rNodo(nom);
 	var kairos = new tempo.rKairos(nom,[raiz]);
+
 	var an = new rDia(1,1,1,jar); //1 de enero, Año Nuevo
 	an.obj.retol = 'Año Nuevo';
 	an.obj.dF = 'NAC';
 	kairos.addNodoHijo(raiz,an); 
 
+	var dr = new rDia(1,1,1,jar); //6 de enero, Reyes Magos
+	dr.obj.retol = 'D. Reyes';
+	dr.obj.dF = 'NAC';
+	kairos.addNodoHijo(raiz,dr); 
+
 	var dp = tempo.pasqa(jar); // Date - domingo de Pascua
 	var vs0 = new Date(dp.setDate(dp.getDate()-2)); // Date - Viernes Santo (DP -2)
 	var d = vs0.getDate();
 	var m = vs0.getMonth()+1;
+
 	var vs = new rDia(d,d,m,jar); // Viernes Santo
-	console.log(utils.o2s(vs));
 	vs.obj.retol = 'V. Santo';
 	vs.obj.dF = 'NAC';
 	kairos.addNodoHijo(raiz,vs);
@@ -416,17 +431,21 @@ function nuevoKairos(){
 	ft.obj.retol = 'F. Trabajo';
 	ft.obj.dF = 'NAC';
 	kairos.addNodoHijo(raiz,ft);
-	//15 de agosto, Asunción de la Virgen (FUNC pascua)
+
 
 	var dp = tempo.pasqa(jar); // Date - domingo de Pascua 
 	var as0 = new Date(dp.setDate(dp.getDate()+39)); // Date Ascensión : DP+40 dias
 	var d = as0.getDate();
 	var m = as0.getMonth()+1;
 	var as = new rDia(d,d,m,jar); // Ascensión del Señor (DP+40)
-	console.log(utils.o2s(as));
 	as.obj.retol = 'Asc. Señor';
 	as.obj.dF = 'NAC';
 	kairos.addNodoHijo(raiz,as);
+
+	var av = new rDia(15,15,8,jar); //15 de agosto, Asunción de la Virgen
+	av.obj.retol = 'Asunc. Virgen';
+	av.obj.dF = 'NAC';
+	kairos.addNodoHijo(raiz,av);
 
 	var dh = new rDia(12,12,10,jar); //12 de octubre, Día de la Hispanidad
 	dh.obj.retol = 'D. Hispanidad';

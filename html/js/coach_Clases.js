@@ -96,10 +96,6 @@ class Temario extends topol.rArbol {
 		this.meta.iam = 'Temario';
 	}
 
-	calculaAuto(nodo){
-
-	}
-
 	getTemas(){
 		var temas = [];
 		this.nodos.map(function(nodo){

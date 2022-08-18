@@ -27,9 +27,9 @@ function initAppsTemario(){
 
 	}
 }
-
+//=================================================================== Agendar
 function agendarTemario(){
-	alert('agendarTemario');
+
 }
 
 //=================================================================== Temarios
@@ -197,7 +197,7 @@ function montaArbolKairos(ul,nodo,editON){
 	}
 
 	var txt = utils.rEl$('span');
-	if (nodo.obj) txt.innerHTML = nodo.obj.dd;
+	if (nodo.obj) txt.innerHTML = nodo.obj.dF+' '+nodo.obj.dd;
 	else txt.innerHTML = nodo.tag;
 	li.appendChild(txt);
 
