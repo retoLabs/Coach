@@ -19,6 +19,10 @@ export var vgApp = {
 		notaDB : 'notasCoach.sqlite',
 		stmtDB : '',
 	},
+	cypher : {
+		base   : '/shell/cypher',
+		pathDB : 'apps/Coach/sqlite',
+	},
 	encript : {
 		base   : '/shell/encript',
 	}
