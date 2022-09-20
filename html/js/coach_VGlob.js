@@ -37,6 +37,9 @@ export function goPag(pag,_id){
 		case 'AGENDA':
 			window.open('agenda.html?idSess='+idSess);
 			break;
+		case 'NOTAS':
+			window.open('notas.html?idSess='+idSess);
+			break;
 	}
 }
 

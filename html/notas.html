@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description" content="">
+<meta name="author" content="Proyecto Marigold">
+<style>
+	.divNota {overflow:hidden;padding:3px;margin:3px;border:1px gray solid}
+	.divNota {
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		-o-user-select: none;
+		user-select: none;
+		cursor: default;
+	}
+</style>
+
+<title>Notas</title>
+
+	<!--  ==================== Librerias externas ==================== -->
+	<link rel="stylesheet" href="lib/bootstrap_335.min.css">
+	<link rel="stylesheet" href="lib/font-awesome_430.min.css">
+
+	<script type='text/javascript' src="lib/jquery_321.min.js"></script>
+	<script type='text/javascript' src="lib/bootstrap_337.min.js"></script>
+	<script type='text/javascript' src="lib/vue_2517.js"></script>
+	<script type='text/javascript' src='lib/libBase64.js'></script>
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+	<link rel="stylesheet" href="css/vueModal.css">
+	<script type="module" src="js/notas.js"></script>
+</head>
+
+
+<body>
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a id="brand" class="navbar-brand" href="#">Notas</a>
+			</div>
+
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="javascript:nuevoTema()"><i class="fa fa-plus"></i></a></li>
+	      	<li ><a href="javascript:goPag('DASH')"><span id="INICI">Inicio</span></a></li>
+
+		      <li class="dropdown" >
+		        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Modo
+		        <span class="caret"></span></a>
+		        <ul id="appModo" class="dropdown-menu">
+		          <li @click="toggleModo('NOTAS')"><i class="fa fa-check" v-if="modo==='NOTAS'"></i> Notas</li>
+		          <li @click="toggleModo('AGEND')"><i class="fa fa-check" v-if="modo==='AGEND'"></i> Agenda</li>
+		          <li @click="toggleModo('BITAC')"><i class="fa fa-check" v-if="modo==='BITAC'"></i> Bitácora</li>
+		          <li @click="toggleModo('TOPOL')"><i class="fa fa-check" v-if="modo==='TOPOL'"></i> Topologia</li>
+		        </ul>
+		      </li>
+
+				</ul>
+				<ul class="nav navbar-nav">
+					<li>
+							<div id="divBusca" class="input-group">
+								<input v-model="patron" class="form-control" type="text"  name="lupa" placeholder="Buscar">
+								<span class="input-group-addon" @click="buscar()"><i class="fa fa-search"></i></span>
+							</div>                                                                  
+					</li>
+				</ul>
+
+		<ul class="nav navbar-nav navbar-right">
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+					<i class="fa fa-user">&nbsp;</i>
+					<span id="usrMenu"> User</span>
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li>
+						<a href="javascript:cambiaPwdUser()">
+							<span id="CHPWD">Cambiar password</span>
+						</a>
+					</li>
+					<li>
+						<a href="javascript:cambiaKeoUser()">
+							<span id="CHKEO">Cambiar idioma</span>
+						</a>
+					</li>
+					<li>
+						<a href="javascript:cierraSesion()">
+							<span id="EXIT">Cerrar sesión**</span>
+						</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+
+			</div>
+		</nav> 
+
+	<div class="container">
+
+		<div  id="appNotas" class="row" >
+			<div class="col-md-2"> 
+
+			<div> 
+				<!-- span v-if="visible" @click="nuevoTema()"><i class="fa fa-plus"></i></span -->
+
+				<button v-if="visible" class="btn btn-default col-md-12" v-for="tema in temas" @click="goTema(tema.tma)">
+					{{tema.tma}}
+				</button>
+			</div><!-- Temaks -->
+
+
+		</div> <!-- md-2 -->
+
+			<div class="col-md-10"> 
+				<h2  style="display:inline-block">{{tagTema}}</h2>
+				<span v-if="visible" style="float:right;">
+					Página {{pagina+1}}
+					<button type="button" @click="nuevaNota()"><i class="fa fa-plus"></i></button>
+					<button type="button" @click="sube()"><i class="fa fa-arrow-up"></i></button>
+					<button type="button" @click="baja()"><i class="fa fa-arrow-down"></i></button>
+					<button v-if="pegarON" type="button" @click="pegar()"><i class="fa fa-paste"></i></button>
+				</span>
+				<div  style="   overflow-y: scroll;   overflow-x: hidden;   max-height: 600px;">
+				<div class="divNota" v-for="(nota,ix) in notas">
+					<h4  @dblclick="edit(ix)">{{nota.tag}}</h4>
+					<div  v-html="nota.txt">{{nota.txt}}</div>
+				</div>
+			</div>
+			</div><!-- Tema -->
+
+		</div> <!-- row -->
+	</div> <!-- container -->
+	<div id="appModal">
+		<modal v-bind:clase="modo" v-if="show" @close="show = false" @graba="graba()" @borra="borra()">
+			<h3 slot="header">{{conds.retol}}</h3>
+			<div slot="body">
+				<form	v-if="edit_t === 'USER'" class="form">
+					<input class="form-control" v-model="item.tag" type="text" name="usr"	placeholder="Usuario">
+					<span class="error" v-if="(!conds.valid.tag.ok)">{{conds.valid.tag.txt}}</span>
+					<input class="form-control" v-model="item.obj.pwd" type="text" name="pwd" placeholder="Password">
+					<span class="error" v-if="(!conds.valid.pwd.ok)">{{conds.valid.pwd.txt}}</span>
+					<input class="form-control" v-model="item.obj.conf" type="text" name="conf" placeholder="Confirmac.">
+					<span class="error" v-if="(!conds.valid.conf.ok)">{{conds.valid.conf.txt}}</span>
+				</form>
+
+
+				<form	v-if="edit_t === 'CHKEO'" class="form">
+					<select size="8" class="form-control">
+						<option v-for="item in items" :value="item.obj.keo" @click="idAct = item.obj.keo">{{ item.tag }}</option>
+					</select>
+				</form>
+
+				<form	v-else-if="edit_t === 'NOTA'" class="form">
+					<input type="hidden" v-model="item.idf" name="idf">
+						<input type="text" v-model="item.tag" name="tag">
+						<textarea	maxlength="4000" class="form-control" v-model="item.txt" name="texto"></textarea>
+				</form>
+			</div>
+		</modal>
+	</div> <!-- appModal -->
+
+</body>
+</html>
