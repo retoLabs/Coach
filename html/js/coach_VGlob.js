@@ -40,6 +40,9 @@ export function goPag(pag,_id){
 		case 'NOTAS':
 			window.open('notas.html?idSess='+idSess);
 			break;
+		case 'GRAFO':
+			window.open('grafoTICs.html?idSess='+idSess);
+			break;
 	}
 }
 

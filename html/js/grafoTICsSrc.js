@@ -107,7 +107,7 @@ function n4j2nodo(neo4j,id){
 		var re = new RegExp(key,"g");
 		prop = prop.split(fld).join(key);
 	})
-
+console.log(prop);
 	var obj = JSON.parse(prop);
 	var nodo = new Cosa(obj.nom);
 	nodo.dim.w = 50;
