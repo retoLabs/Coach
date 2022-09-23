@@ -122,7 +122,7 @@ function n4j2arco(neo4j,nodoI,nodoF){
 	var patt1 = /(:\w+)/;
 	var items = neo4j.match(patt1);
 	var lbls = items[1];
-	var arco = new topol.rArco(lbls,nodoI,nodoF,0);
+	var arco = new topol.rArco(lbls,nodoI.id0,nodoF.id0,0);
 
 	return arco;
 }
@@ -172,7 +172,8 @@ function showGrafo(){
 				nodos.push(nodoF);
 			}
 			var arco = n4j2arco(fila.arc.trim(),nodoI,nodoF);
-			console.log("arco",utils.o2s(arco),arco.getId0Real(), '-->', arco.id1);
+			console.log("arco",utils.o2s(arco));
+			console.log(arco.idI, '-->', arco.idF);
 			nodos.push(arco);
 			console.log("-----------------");
 		}
@@ -282,7 +283,7 @@ function ctrlKeyON(id){
 		if (yaEsta){
 			editArco(link);}
 		else {
-			utils.vgk.grafo.addArco(link)};
+			utils.vgk.grafo.addArcoSelf(link)};
 			addArcoNeo4j(nodoI,nodoF,link);
 		}
 	showElGrafo();
