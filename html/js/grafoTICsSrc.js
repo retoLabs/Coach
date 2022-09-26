@@ -131,10 +131,9 @@ function showElGrafo(){
 	utils.vgk.trazo.clearDivsNodo();
 	utils.vgk.trazo.showNodosGrafo(utils.vgk.grafo.nodos);
 	
-/*	var dims = utils.vgk.grafo.getDimsArcos();
+	var dims = utils.vgk.grafo.getDimsArcos();
 	utils.vgk.trazo.canvas.reset();
 	utils.vgk.trazo.canvas.pintaArcos(dims);
-*/
 }
 
 function creaCanvas(){
@@ -276,7 +275,7 @@ function ctrlKeyON(id){
 		var nodoF = utils.vgk.grafo.getNodoById(id);
 		console.log('nodoI: ' + utils.o2s(nodoI))
 		console.log('nodoF: ' + utils.o2s(nodoF))
-		var link = new n4jArco('x',nodoI,nodoF,0);
+		var link = new n4jArco('x',nodoI.id0,nodoF.id0,0);
 		link.iam = 'ARCO';
 		var yaEsta = utils.vgk.grafo.existArco(link);
 		console.log('ya esta?',yaEsta);
