@@ -22,7 +22,7 @@
 	<form action="citas2.php" method="post">
 		<label for="email">email</label>
 		<input type="text" name="email"><br>
-	      <select>
+	      <select name="id">
         <option value="0">Seleccione:</option>
         <?php
 					$stmtQry = $dbConn->prepare('SELECT * FROM "citas" WHERE length("email") =  0;');
@@ -33,10 +33,8 @@
         ?>
       </select><br>
  
-		<label for="fecha">fecha</label>
-		<input type="text" name="fecha"><br>
-		<label for="hora">hora</label>
-		<input type="text" name="hora"><br>
+		<input type="hidden" name="fecha"><br>
+		<input type="hidden" name="hora"><br>
 		<label for="tema">tema</label>
 		<textarea name="tema"></textarea>
 		<input type="submit" name="go" value="Enviar">

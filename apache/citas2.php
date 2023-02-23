@@ -15,12 +15,10 @@
 
 	if (empty($results->fetchArray())) {
 		echo "Insertando cita<br>";
-		$stmt = $dbConn->prepare('INSERT INTO "citas" ("email", "fecha", "hora", "tema") 
-			VALUES ( :email, :fecha, :hora, :tema)');
+		$stmt = $dbConn->prepare('UPDATE "citas" set email=:email,tema=:tema WHERE id=:id;');
 
+		$stmt->bindValue(':id',    $_POST['id'], SQLITE3_NUM);
 		$stmt->bindValue(':email', $_POST['email'], SQLITE3_TEXT);
-		$stmt->bindValue(':fecha', $_POST['fecha'], SQLITE3_TEXT);
-		$stmt->bindValue(':hora',  $_POST['hora'], SQLITE3_TEXT);
 		$stmt->bindValue(':tema',  $_POST['tema'], SQLITE3_TEXT);
 
 		$stmt->execute();
@@ -36,12 +34,10 @@
 	}
 
 		echo "Insertando nueva cita<br>";
-		$stmt = $dbConn->prepare('INSERT INTO "citas" ("email", "fecha", "hora", "tema") 
-			VALUES ( :email, :fecha, :hora, :tema)');
+		$stmt = $dbConn->prepare('UPDATE "citas" set email=:email,tema=:tema WHERE id=:id;');
 
+		$stmt->bindValue(':id',    $_POST['id'], SQLITE3_NUM);
 		$stmt->bindValue(':email', $_POST['email'], SQLITE3_TEXT);
-		$stmt->bindValue(':fecha', $_POST['fecha'], SQLITE3_TEXT);
-		$stmt->bindValue(':hora',  $_POST['hora'], SQLITE3_TEXT);
 		$stmt->bindValue(':tema',  $_POST['tema'], SQLITE3_TEXT);
 
 		$stmt->execute();

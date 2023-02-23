@@ -41,14 +41,12 @@
 ?>
 
 	<form action="" method="post">
-		<label for="email">email</label>
-		<input type="text" name="email"><br>
+		<input type="hidden" name="email"><br>
 		<label for="fecha">fecha</label>
 		<input type="text" name="fecha"><br>
 		<label for="hora">hora</label>
 		<input type="text" name="hora"><br>
-		<label for="tema">tema</label>
-		<textarea name="tema"></textarea>
+		<input type = "hidden" name="tema"></textarea>
 		<input type="submit" name="submit" value="Enviar">
 	</form>
 
