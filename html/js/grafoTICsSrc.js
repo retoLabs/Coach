@@ -11,29 +11,38 @@ function initAppCypher(){
 	utils.vgk.appQueryTable = new Vue ({
 		el: '#queryTable',
 		data : {
-			database: 'usersCoach.sqlite',
+			vista: 'cypher',
 			heads : [],
 			filas :[],
 			cells :[],
 			stmt :null
 		},
 		methods : {
-			setFilas : function (filas){
+			setFilas : function(filas){
 				this.filas = filas;
 			},
-			setHeads : function (heads){
+			setHeads : function(heads){
 				this.heads = heads;
 			},
 			execStmt : function(){
-				console.log(this.database+' : '+this.stmt);
 				execQuery(this.stmt);
 			},
-			showGrafo : function (){showGrafo();}
+			swapVista : function(vista){swapVista(vista)},
+			showGrafo : function(){showGrafo();}
 		}
 	})
 }
 
-
+function swapVista(vista){
+	if (vista == 'cypher'){
+		utils.r$('tabla').style.display ='block';
+		utils.r$('divBase').style.display ='none';
+	}
+	else {
+		utils.r$('tabla').style.display ='none';
+		utils.r$('divBase').style.display ='block';
+	}
+}
 function grabaNodo(){
 	console.log('grabaNodo');
 	var nodo = utils.vgk.appModal.item;
@@ -42,7 +51,7 @@ function grabaNodo(){
 	
 	utils.vgk.appQueryTable.stmt = stmt;
 	utils.vgk.appQueryTable.execStmt();
-	utils.r$('divBase').style.display = 'block';
+//	utils.r$('divBase').style.display = 'block';
 	showElGrafo();
 }
 
@@ -128,15 +137,18 @@ function n4j2arco(neo4j,nodoI,nodoF){
 }
 
 function showElGrafo(){
+	if (!utils.vgk.grafo) return;
+ 
 	utils.vgk.trazo.clearDivsNodo();
 	utils.vgk.trazo.showNodosGrafo(utils.vgk.grafo.nodos);
-	
 	var dims = utils.vgk.grafo.getDimsArcos();
+	console.log(utils.o2s(dims));
 	utils.vgk.trazo.canvas.reset();
 	utils.vgk.trazo.canvas.pintaArcos(dims);
 }
 
 function creaCanvas(){
+	console.log('creaCanvas');
 	utils.vgk.trazo = new trazo.rTrazo('divBase');
 	utils.vgk.trazo.fnDrop = onDrop;
 	utils.vgk.trazo.fnKeyBase = onKeyBase;
@@ -149,6 +161,7 @@ function creaCanvas(){
 
 
 function showGrafo(){
+	utils.vgk.appQueryTable.swapVista();
 	var nodos = [];
 	var index = []; // para evitar nodos repetidos
 
@@ -179,12 +192,11 @@ function showGrafo(){
 	});
 
 //	console.log(utils.o2s(nodos));
-	var grafo = new topol.rGrafo('Grafo 1',nodos);
-//	console.log(utils.o2s(grafo.clase2ObjDB()));
-	utils.vgk.grafo = grafo;
+	utils.vgk.grafo = new topol.rGrafo('x',nodos);
 
+	showElGrafo();
 
-	creaCanvas();
+//	creaCanvas();
 }
 
 function showFilas(xhr){
@@ -211,7 +223,7 @@ function execQuery(stmt){
 	ajax.ajaxCmdShell(params,body);
 	return false;
 }
-export default {initAppCypher,execQuery}
+export default {initAppCypher,execQuery,creaCanvas}
 
 
 //===================================================================
@@ -242,6 +254,7 @@ function addArcoNeo4j(nodoI,nodoF,arco){
 
 //------------------------------------------------------------------- Teclas
 function onKeyBase(cod,pntX,pntY){
+	if (!utils.vgk.grafo) utils.vgk.grafo = new topol.rGrafo('x',[]);
 	if (cod == 'CTRL'){
 		var tag = prompt('Tag?','Nuevo');
 		if (!tag) return false;
@@ -249,9 +262,11 @@ function onKeyBase(cod,pntX,pntY){
 		var nodo = new Cosa(tag);
 		console.log(utils.vgk.tecla);
 		nodo.dim = {x:pntX,y:pntY,w:120,h:60};
-		console.log('Antes: '+ utils.o2s(utils.vgk.grafo.index))
+		console.log('Antes: '+ utils.o2s(utils.vgk.grafo.index));
+		if (!utils.vgk.grafo) utils.vgk.grafo = new rGrafo('x',[]);
 		utils.vgk.grafo.addNodo(nodo);
-		console.log('Luego: '+ utils.o2s(utils.vgk.grafo.index))
+		showElGrafo();
+		console.log('Luego: '+ utils.o2s(utils.vgk.grafo.index));
 		utils.vgk.trazo.addDivNodo(nodo);
 		utils.vgk.tecla = null;
 		addNodoGrafoNeo4j(nodo);
@@ -312,8 +327,5 @@ function onDrop(div){
 	var dims = utils.vgk.grafo.getDimsArcos();
 	utils.vgk.trazo.canvas.reset();
 	utils.vgk.trazo.canvas.pintaArcos(dims);
-
-	var task = utils.vgk.grafo.getNodoById(div.id);
-
 }
 

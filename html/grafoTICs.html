@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Sistema</title>
+	<title>Grafo</title>
 
 	<link rel="stylesheet" href="lib/bootstrap_335.min.css">
 	<link rel="stylesheet" href="lib/font-awesome_430.min.css">
@@ -18,10 +18,12 @@
 		#divBase {
 			position: absolute;
 			left: 20px;
-			top: 180px;
+			top: 80px;
 			width: 95%; 
 			height: 600px;
 			border: 2px maroon solid;
+			background-color: transparent;
+			display: none;
 		}
 		.rDrag {
 			position: absolute;
@@ -75,30 +77,28 @@
 
 			<form style="margin:5px">
 				<label class="radio-inline">
-					<input  type="radio" name="database" id="R1" v-model="database" value="usersAgro.sqlite">Usuarios
+					<input  type="radio" name="vista" id="V1" v-model="vista" value="cypher" @click="swapVista('cypher')">Cypher
 				</label>
 
 				<label class="radio-inline">
-					<input type="radio" name="database" id="R2" v-model="database" value="repoAgro.sqlite">Repositorio
+					<input type="radio" name="vista" id="V2" v-model="vista" value="trazo" @click="swapVista('trazo')">Canvas
 				</label>
 
-				<label class="radio-inline">
-					<input type="radio" name="database" id="R3" v-model="database" value="notasAgro.sqlite">Notas
-				</label>
 				<button type="button" @click="showGrafo()" class="btn btn-success radio-inline">Grafo</button>
 			</form>
 
+		</div><!-- row  -->
+
+		<div class="row" id="tabla">
  				<form autocomplete="on">
  			<div class="col-md-11">
  				<input type="text" v-model="stmt" class="form-control" placeholder="Sentencia SQL" autocomplete="on">
- 			</div>
-			<div class="col-md-1">
-				<button type="button" @click="execStmt" class="btn btn-success"><i class="fa fa-search"> </i></button>
 			</div>
-		</form>
-		</div><!-- row  -->
+ 			<div class="col-md-1">
+				<button type="button" @click="execStmt" class="btn btn-success"><i class="fa fa-search"> </i></button>
+			</div> 				
 
-		<div class="row">
+		</form>
 			<div  class="col-md-12">
 				<div style="border:2px gray solid;margin:8px;max-height: 800px;overflow:auto">
 					<table v-if="filas.length > 0" class="table table-bordered">

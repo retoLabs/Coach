@@ -20,6 +20,7 @@ window.vgApp = vgApp;
 
 function sesionCypherOK(){
 
+	src.creaCanvas();
 
 	var stmt = 'match (ini) where not (ini)-[:ARCO]-() return '
 	stmt+= 'ID(ini) as id0, ini,null as arc, 0 as id1, null as fin ';
@@ -31,7 +32,7 @@ function sesionCypherOK(){
 //	stmt += 'labels(ini) as lbl_i,properties(ini) as ini,arc,labels(fin) as lbl_f,properties(fin) as fin;';
 
 	utils.vgk.appQueryTable.stmt = stmt;
-	utils.vgk.appQueryTable.execStmt();
+//	utils.vgk.appQueryTable.execStmt();
 }
 
 
@@ -39,7 +40,6 @@ function initCypher(){
 	vapps.initAppsGlobal();  // libK1_vApps.js
 	src.initAppCypher();
 	sess.validaSesion('usrMenu', sesionCypherOK); // kernel/libK1_sesion.js
-
 }
 
 window.onload = initCypher; 
