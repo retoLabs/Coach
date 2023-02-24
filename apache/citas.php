@@ -20,21 +20,25 @@
 <body>
 
 	<form action="citas2.php" method="post">
-		<label for="email">email</label>
-		<input type="text" name="email"><br>
 	      <select name="id">
         <option value="0">Seleccione:</option>
         <?php
-					$stmtQry = $dbConn->prepare('SELECT * FROM "citas" WHERE length("email") =  0;');
+					$stmtQry = $dbConn->prepare("SELECT * FROM citas WHERE stat = 'INI';");
 				 	$results = $stmtQry->execute();
 					while ($row = $results->fetchArray()) {
 						echo '<option value="'.$row['id'].'">'.$row['fecha'].'&nbsp'.$row['hora'].'</option>';
 					}
+
+
+
         ?>
       </select><br>
- 
-		<input type="hidden" name="fecha"><br>
-		<input type="hidden" name="hora"><br>
+ 		<?php 
+			$ahora = new DateTime('now', new DateTimeZone('UTC'));
+			echo '<input type="hidden" name="inic" value="'. $ahora->format('Y-m-d H:i:s').'">';
+		?>
+		<label for="email">email</label>
+		<input type="text" name="email"><br>
 		<label for="tema">tema</label>
 		<textarea name="tema"></textarea>
 		<input type="submit" name="go" value="Enviar">

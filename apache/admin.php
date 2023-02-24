@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Citas</title>
+	<title>Admin</title>
 </head>
 <body>
 <?php
@@ -18,13 +18,12 @@
 	if (isset($_POST['submit'])) {
 		echo "Pasa";
 
-		$stmt = $dbConn->prepare('INSERT INTO "citas" ("email", "fecha", "hora", "tema") 
-			VALUES ( :email, :fecha, :hora, :tema)');
+		$stmt = $dbConn->prepare('INSERT INTO "citas" ("fecha", "hora", "stat") 
+			VALUES (:fecha, :hora, :stat)');
 
-		$stmt->bindValue(':email', $_POST['email'], SQLITE3_TEXT);
 		$stmt->bindValue(':fecha', $_POST['fecha'], SQLITE3_TEXT);
 		$stmt->bindValue(':hora',  $_POST['hora'], SQLITE3_TEXT);
-		$stmt->bindValue(':tema',  $_POST['tema'], SQLITE3_TEXT);
+		$stmt->bindValue(':stat',  $_POST['stat'], SQLITE3_TEXT);
 
 		$stmt->execute();
 
@@ -35,18 +34,17 @@
 
 	$results = $stmtQry->execute();
 	while ($row = $results->fetchArray()) {
-		echo $row['email'] . $row['fecha'] .$row['hora'] .$row['tema'] . "<br>";
+		echo $row['email'] . $row['fecha'] .$row['hora'] .$row['tema'] . $row['time'] .$row['stat'] ."<br>";
 	}
 
 ?>
 
 	<form action="" method="post">
-		<input type="hidden" name="email"><br>
 		<label for="fecha">fecha</label>
 		<input type="text" name="fecha"><br>
 		<label for="hora">hora</label>
 		<input type="text" name="hora"><br>
-		<input type = "hidden" name="tema"></textarea>
+		<input type = "hidden" name="stat" value="INI">
 		<input type="submit" name="submit" value="Enviar">
 	</form>
 

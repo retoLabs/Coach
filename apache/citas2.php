@@ -15,14 +15,21 @@
 
 	if (empty($results->fetchArray())) {
 		echo "Insertando cita<br>";
-		$stmt = $dbConn->prepare('UPDATE "citas" set email=:email,tema=:tema WHERE id=:id;');
+		$stmt = $dbConn->prepare('UPDATE "citas" set 
+			email=:email,
+			tema=:tema, 
+			inic=:inic, 
+			stat="RES" 
+			WHERE id=:id;');
 
 		$stmt->bindValue(':id',    $_POST['id'], SQLITE3_NUM);
 		$stmt->bindValue(':email', $_POST['email'], SQLITE3_TEXT);
 		$stmt->bindValue(':tema',  $_POST['tema'], SQLITE3_TEXT);
+		$stmt->bindValue(':inic',  $_POST['inic'], SQLITE3_TEXT);
 
 		$stmt->execute();
-		echo "Le enviaremos email para confirmar";
+		echo "Primera cita insertada";
+		echo "Le enviaremos email para confirmar dirección de correo";
 	}
 	else {
 
@@ -34,11 +41,17 @@
 	}
 
 		echo "Insertando nueva cita<br>";
-		$stmt = $dbConn->prepare('UPDATE "citas" set email=:email,tema=:tema WHERE id=:id;');
+		$stmt = $dbConn->prepare('UPDATE "citas" set 
+			email=:email,
+			tema=:tema,
+			inic=:inic,
+			stat= "OK"
+			WHERE id=:id;');
 
 		$stmt->bindValue(':id',    $_POST['id'], SQLITE3_NUM);
 		$stmt->bindValue(':email', $_POST['email'], SQLITE3_TEXT);
 		$stmt->bindValue(':tema',  $_POST['tema'], SQLITE3_TEXT);
+		$stmt->bindValue(':inic',  $_POST['inic'], SQLITE3_TEXT);
 
 		$stmt->execute();
 
@@ -50,3 +63,14 @@
 //		header('Location: http://localhost/Coach/citas.html');
 		die();	
 ?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Citas 2</title>
+</head>
+<body>
+
+</body>
+</html>
