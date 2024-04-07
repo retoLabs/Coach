@@ -1,0 +1,14 @@
+insert into users (id0,(20),
+	md5 varchar(40) unique,
+	rol varchar(10),
+	org varchar(10),
+	keo varchar(5));
+CREATE TABLE orgs (cod text, descr text,status text);
+CREATE TABLE idiomas
+(num INTEGER PRIMARY KEY AUTOINCREMENT,
+cod varchar(30),
+keo varchar(4),
+tag varchar(30)
+);
+CREATE TABLE sqlite_sequence(name,seq);
+TESTER_Agro|0|tester|5ad4de0a77b7f4b23aa76e9f90e05c9d|TESTS|NOORG|ES

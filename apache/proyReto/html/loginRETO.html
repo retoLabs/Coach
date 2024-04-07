@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description" content="">
+<meta name="author" content="Proyecto RETO">
+
+<title>RETO</title>
+
+<!-- Bootstrap core CSS -->
+<!--  ==================== LOCAL ==================  -->
+    <link rel="stylesheet" href="libs/bootstrap_335.min.css">
+    <link rel="stylesheet" href="libs/font-awesome_430.min.css">
+    <script src="libs/jquery_321.min.js"></script>
+    <script src="libs/bootstrap_337.min.js"></script>
+    <script src="libs/vue_2517.js"></script>
+	<script type='text/javascript' src='libs/libBase64.js'></script>
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="row">
+	    <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3"> 
+        <div class="panel panel-default"  style="margin-top:25px">
+					<div class="panel-heading">
+						<img src="/img/logoReto.svg" width="100%">
+						<div class="panel-title text-center"><h4>Proyecto RETO</a></h4></div>
+					</div>     
+
+					<div class="panel-body" id="divLogin" >
+						<form name="form" id="form" class="form-horizontal" enctype="multipart/form-data" method="GET" action="cgi-bin/login.cgi">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-user"></i></span>
+								<input v-model="user" id="user" type="text" class="form-control" name="usr" value="" placeholder="Usuario">                                        
+							</div>
+
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-lock"></i></span>
+								<input v-model="pwd" id="password" type="password" class="form-control" name="pwd" placeholder="Password">
+							</div>                                                                  
+
+							<div class="form-group">
+								<div class="col-sm-12 controls">
+									<button type="submit" class="btn btn-primary  form-control" ><i class="fa fa-sign-in"></i> Entrar</button>
+								</div>
+							</div>
+						</form>     
+					</div>  <!-- divLogin -->                   
+        		</div>  <!-- panel-default -->
+			</div> <!-- loginbox -->
+		</div> <!-- row -->
+	</div> <!-- container -->
+      <footer class="text-center">
+      </footer>
+</body>
+</html>

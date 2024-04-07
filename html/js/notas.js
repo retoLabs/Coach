@@ -31,14 +31,11 @@ window.rNodoClase = rNodoClase;
 window.rTxtML = rTxtML;
 window.rTagML = rTagML;
 window.rUsuario = rUsuario;
-window.cierraSesion = sess.cierraSesion;
-window.cambiaKeoUser = sess.cambiaKeoUser;
-window.cambiaPwdUser = sess.cambiaPwdUser;
 
 window.nuevoTema = nuevoTema;
 
 function sesionNotasOK(){
-	src.getTemas('NOTAS',null);
+	src.getTemas('LINUX',null);
 }
 function initNotas(){
 	vapps.initAppsGlobal();

@@ -26,8 +26,8 @@ function modSwitch(ok,tipo){
 		case 'ADMIN' :
 			window.location = 'calendario.html?idSess='+utils.vgk.sesion_id;
 			break;
-		case 'TESTS' :
-			window.location = 'testLogin.html';
+		case 'ALUMNO' :
+			window.location = 'practicas.html?idSess='+utils.vgk.sesion_id;
 			break;
 		default:
 			vgk.appLogin.noRol = true;

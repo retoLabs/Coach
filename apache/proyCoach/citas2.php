@@ -9,6 +9,7 @@
 
 
 	$stmtQry = $dbConn->prepare('SELECT * FROM "citas" WHERE email = :email;');
+
 	$stmtQry->bindValue(':email', $_POST['email'], SQLITE3_TEXT);
 
 	$results = $stmtQry->execute();
@@ -27,9 +28,10 @@
 		$stmt->bindValue(':tema',  $_POST['tema'], SQLITE3_TEXT);
 		$stmt->bindValue(':inic',  $_POST['inic'], SQLITE3_TEXT);
 
-		$stmt->execute();
-		echo "Primera cita insertada";
+//		$stmt->execute();
+		echo "Primera cita insertada. id = " . $_POST['id'] . "<br>";
 		echo "Le enviaremos email para confirmar dirección de correo";
+
 	}
 	else {
 

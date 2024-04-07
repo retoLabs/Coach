@@ -82,7 +82,7 @@ function initApps(){
 		utils.vgk.appModo = new Vue({
 			el: '#appModo',
 			data: { 
-				modo: 'NOTAS'
+				modo: 'LINUX'
 			},
 			methods : {
 				toggleModo : function(modo){
@@ -93,21 +93,16 @@ function initApps(){
 						utils.r$('brand').innerHTML = 'Notas';
 						getTemas('NOTAS');  // se pone aquí para que Ajax no se equivoque :-)
 					}
-					else if (modo == 'AGEND'){
+					else if (modo == 'LINUX'){
 						utils.vgk.appNotas.visible = true;
-						utils.r$('brand').innerHTML = 'Agenda';
-						getTemas('AGEND');  // se pone aquí para que Ajax no se equivoque :-)
+						utils.r$('brand').innerHTML = 'Linux';
+						getTemas('LINUX');  // se pone aquí para que Ajax no se equivoque :-)
 
 					}
-					else if (modo == 'BITAC'){
+					else if (modo == 'JAVA'){
 						utils.vgk.appNotas.visible = true;
-						utils.r$('brand').innerHTML = 'Bitácora';
-						getTemas('BITAC');  // se pone aquí para que Ajax no se equivoque :-)
-					}
-					else if (modo == 'TOPOL'){
-						utils.vgk.appNotas.visible = true;
-						utils.r$('brand').innerHTML = 'Topología';
-						getTemas('TOPOL');  // se pone aquí para que Ajax no se equivoque :-)
+						utils.r$('brand').innerHTML = 'Java';
+						getTemas('JAVA');  // se pone aquí para que Ajax no se equivoque :-)
 					}
 				}
 			}
@@ -156,6 +151,8 @@ function getNotas(categ, tema){
 
 //------------------------------------------------------------------- Get Temas
 function ecoGetTemas(xhr){
+	utils.vgk.appNotas.notas = [];
+	utils.vgk.appNotas.tagTema = '';
 	var filas = utils.csv2filas(xhr.responseText)
 	var temas = [];
 	filas.map(function(fila){
@@ -164,7 +161,6 @@ function ecoGetTemas(xhr){
 	console.log(utils.o2s(temas));
 	utils.vgk.appNotas.temas = temas;
 	getNotas(utils.vgk.appModo.modo,temas[0].tma);
-	utils.vgk.appNotas.notas = [];
 }
 
 
