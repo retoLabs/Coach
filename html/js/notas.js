@@ -13,8 +13,8 @@ txt text);
 
 */
 
-import sess   from '/k1/libK1_Sesion.js'
-import vapps  from '/k1/libK1_vApps.js'
+import sess   from '../k1/libK1_Sesion.js'
+import vapps  from '../k1/libK1_vApps.js'
 
 import src from '/js/notasSrc.js'
 import {nuevoTema} from '/js/notasSrc.js'

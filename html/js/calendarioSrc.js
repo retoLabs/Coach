@@ -1,15 +1,15 @@
 
-import utils  from '/k1/libK1_Utils.js'
-import ajax   from '/k1/libK1_Ajax.js'
-//import idioma from '/k1/libK1_Idioma.js'
-import vapps  from '/k1/libK1_vApps.js'
-import topol  from '/k1/libK1_Topol.js'
-import tempo  from '/k1/libK1_Tiempo.js'
+import utils  from '../k1/libK1_Utils.js'
+import ajax   from '../k1/libK1_Ajax.js'
+//import idioma from '../k1/libK1_Idioma.js'
+import vapps  from '../k1/libK1_vApps.js'
+import topol  from '../k1/libK1_Topol.js'
+import tempo  from '../k1/libK1_Tiempo.js'
+import {rDia} from '../k1/libK1_Tiempo.js'
 
-import coach   from  '/js/coach_Clases.js'
+import coach   from  '/coach/js/coach_Clases.js'
 
-import {rDia} from '/k1/libK1_Tiempo.js'
-import {vgApp,goPag}  from '/js/coach_VGlob.js'
+import {vgApp,goPag}  from '/coach/js/coach_VGlob.js'
 
 window.rDia = rDia;
 window.vgApp = vgApp;

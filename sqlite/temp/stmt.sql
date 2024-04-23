@@ -1,2 +1,2 @@
 .headers ON
-select * from notas where ktg='LINUX' and tma = 'Tests de nivel';
+select * from users where _id="1" and id0=0;

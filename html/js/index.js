@@ -1,8 +1,8 @@
 
-import utils from '/k1/libK1_Utils.js'
-import sess from '/k1/libK1_Sesion.js'
+import utils from '../k1/libK1_Utils.js'
+import sess from '../k1/libK1_Sesion.js'
 
-import {vgApp,goPag} from '/js/coach_VGlob.js'
+import {vgApp,goPag} from '/coach/js/coach_VGlob.js'
 
 window.vgApp = vgApp;
 window.goPag = goPag;

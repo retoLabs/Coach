@@ -3,7 +3,7 @@ import {vgk}  from '../k1/libK1_Utils.js'
 export var vgApp = {
 	paramsXHR : {
 		fase : 'alfa',
-		url : 'http://' + window.location.host+'/coach/',
+		url : 'http://' + window.location.host,
 		base : '/datos',
 		otro : '',
 		iam : '',
@@ -11,9 +11,9 @@ export var vgApp = {
 	},
 	sqlite : {
 		base   : '/shell/sqlite',
-		pathDB : 'apps/Coach/sqlite',
 		userDB : 'usersCoach.sqlite',
 		sessDB : 'sessCoach.sqlite',
+		pathDB : 'apps/Coach/sqlite',
 		repoDB : 'repoCoach.sqlite',
 		notaDB : 'notasCoach.sqlite',
 		stmtDB : '',

@@ -20,7 +20,7 @@
 	}
 </style>
 
-<title>Notas</title>
+<title>Practicas</title>
 
 	<!--  ==================== Librerias externas ==================== -->
 	<link rel="stylesheet" href="lib/bootstrap_335.min.css">
@@ -57,9 +57,9 @@
 		        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Modo
 		        <span class="caret"></span></a>
 		        <ul id="appModo" class="dropdown-menu">
-		          <li @click="toggleModo('NOTAS')"><i class="fa fa-check" v-if="modo==='NOTAS'"></i> Notas</li>
 		          <li @click="toggleModo('LINUX')"><i class="fa fa-check" v-if="modo==='LINUX'"></i> Linux</li>
 		          <li @click="toggleModo('JAVA')"><i class="fa fa-check" v-if="modo==='JAVA'"></i> Java</li>
+		          <li @click="toggleModo('NOTAS')"><i class="fa fa-check" v-if="modo==='NOTAS'"></i> Notas</li>
 		        </ul>
 		      </li>
 
@@ -125,6 +125,21 @@
 		<modal v-bind:clase="modo" v-if="show" @close="show = false" @graba="graba()" @borra="borra()">
 			<h3 slot="header">{{conds.retol}}</h3>
 			<div slot="body">
+				<form	v-if="edit_t === 'USER'" class="form">
+					<input class="form-control" v-model="item.tag" type="text" name="usr"	placeholder="Usuario">
+					<span class="error" v-if="(!conds.valid.tag.ok)">{{conds.valid.tag.txt}}</span>
+					<input class="form-control" v-model="item.obj.pwd" type="text" name="pwd" placeholder="Password">
+					<span class="error" v-if="(!conds.valid.pwd.ok)">{{conds.valid.pwd.txt}}</span>
+					<input class="form-control" v-model="item.obj.conf" type="text" name="conf" placeholder="Confirmac.">
+					<span class="error" v-if="(!conds.valid.conf.ok)">{{conds.valid.conf.txt}}</span>
+				</form>
+
+
+				<form	v-if="edit_t === 'CHKEO'" class="form">
+					<select size="8" class="form-control">
+						<option v-for="item in items" :value="item.obj.keo" @click="idAct = item.obj.keo">{{ item.tag }}</option>
+					</select>
+				</form>
 
 				<form	v-else-if="edit_t === 'NOTA'" class="form">
 					<input type="hidden" v-model="item.idf" name="idf">

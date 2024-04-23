@@ -1,12 +1,12 @@
 
-import utils  from '/k1/libK1_Utils.js'
-import sess   from '/k1/libK1_Sesion.js'
-import vapps  from '/k1/libK1_vApps.js'
+import utils  from '../k1/libK1_Utils.js'
+import sess   from '../k1/libK1_Sesion.js'
+import vapps  from '../k1/libK1_vApps.js'
+import {rUsuario} from '../k1/libK1_Clases.js'
 
-import src    from '/js/calendarioSrc.js'
+import src    from '/coach/js/calendarioSrc.js'
 
-import {vgApp,goPag} from '/js/coach_VGlob.js'
-import {rUsuario} from '/k1/libK1_Clases.js'
+import {vgApp,goPag} from '/coach/js/coach_VGlob.js'
 
 
 window.vgApp = vgApp;

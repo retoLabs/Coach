@@ -8,16 +8,16 @@ Así que con la ayuda del kairos, que marca los dias lectivos, y el temario, se 
 Esto es, una serie de tareas, con un horario, y un contenido pedagógico concreto a desarrollar.
 */
 
-import utils  from '/k1/libK1_Utils.js'
-import sess   from '/k1/libK1_Sesion.js'
-import vapps  from '/k1/libK1_vApps.js'
-import {rDia} from '/k1/libK1_Tiempo.js'
+import utils  from '../k1/libK1_Utils.js'
+import sess   from '../k1/libK1_Sesion.js'
+import vapps  from '../k1/libK1_vApps.js'
+import {rDia} from '../k1/libK1_Tiempo.js'
 
 import src    from '/js/agendaSrc.js'
 import {ItemTemario}   from  '/js/coach_Clases.js'
 
 import {vgApp,goPag} from '/js/coach_VGlob.js'
-import {rUsuario} from '/k1/libK1_Clases.js'
+import {rUsuario} from '../k1/libK1_Clases.js'
 
 
 window.vgApp = vgApp;

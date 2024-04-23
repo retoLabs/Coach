@@ -4,9 +4,9 @@ mediante la función modSwitch (index2.js) redirige a system.html
 
 Se valida la sesión, y se presentan las opciones de administración a nivel de Sistema
 */
-import utils  from '/k1/libK1_Utils.js'
-import vapps  from '/k1/libK1_vApps.js'
-import sess   from '/k1/libK1_Sesion.js'
+import utils  from '../k1/libK1_Utils.js'
+import vapps  from '../k1/libK1_vApps.js'
+import sess   from '../k1/libK1_Sesion.js'
 
 import {vgApp,goPag} from '/js/coach_VGlob.js'
 

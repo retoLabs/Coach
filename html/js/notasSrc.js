@@ -12,10 +12,10 @@ texto text
 );
 */
 
-import utils  from '/k1/libK1_Utils.js'
-import ajax   from '/k1/libK1_Ajax.js'
-import vapps  from '/k1/libK1_vApps.js'
-import clases  from '/k1/libK1_Clases.js'
+import utils  from '../k1/libK1_Utils.js'
+import ajax   from '../k1/libK1_Ajax.js'
+import vapps  from '../k1/libK1_vApps.js'
+import myNota from '/js/classNota.js'
 
 function encripta(texto,frase){
 	var nT = texto.length;
@@ -119,10 +119,10 @@ function ecoQueryNotas(xhr){
 	utils.vgk.notas = filas;
 	var notas = [];
 	filas.map(function(fila){
-		var nota = new clases.rNota();
+		var nota = new myNota.Nota();
 		nota.fila2Clase(fila);
 
-		console.log(utils.o2s(nota));
+//		console.log(utils.o2s(nota));
 		notas.push(nota);
 	})
 	utils.vgk.appNotas.notas = notas;
@@ -190,7 +190,7 @@ function ecoNuevoTema(xhr){
 export function nuevoTema(){
 	var tema = prompt ('Nombre Tema?');
 	if (!tema) return;
-	var nota = new clases.rNota(utils.vgk.appModo.modo,tema);
+	var nota = new myNota.Nota(utils.vgk.appModo.modo,tema);
 	nota.tag = 'Sin titulo';
 	nota.txt = 'Nota inicial (editar)';
 	var stmt = nota.getInsertSQL();
@@ -224,7 +224,9 @@ function ecoGraba(xhr){
 function grabaNota(){
 	var stmt = null;
 	var nota = utils.vgk.appModal.item;
+	console.log(utils.o2s(nota));
 	nota.convert('BBDD');
+	console.log(utils.o2s(nota));
 	if (utils.vgk.appModal.editON) stmt = nota.getUpdateSQL();
 	else stmt = nota.getInsertSQL();
 
@@ -278,7 +280,7 @@ function editNota(ix){
 }
 
 function nuevaNota(){
-	var nota = new clases.rNota(utils.vgk.appModo.modo,utils.vgk.appNotas.tagTema);
+	var nota = new myNota.Nota(utils.vgk.appModo.modo,utils.vgk.appNotas.tagTema);
 	vapps.crearItem('NOTA',nota,grabaNota);
 }
 

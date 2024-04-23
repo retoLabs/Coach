@@ -1,13 +1,13 @@
 
-import utils  from '/k1/libK1_Utils.js'
-import sess   from '/k1/libK1_Sesion.js'
-import vapps  from '/k1/libK1_vApps.js'
+import utils  from '../k1/libK1_Utils.js'
+import sess   from '../k1/libK1_Sesion.js'
+import vapps  from '../k1/libK1_vApps.js'
+import {rKeos,rLang,rNodoClase,rTxtML,rTagML,rUsuario} from '../k1/libK1_Clases.js'
 
-import src    from '/js/temarioSrc.js'
-import {ItemTemario}   from  '/js/coach_Clases.js'
+import src    from '/coach/js/temarioSrc.js'
+import {ItemTemario}   from  '/coach/js/coach_Clases.js'
 
-import {vgApp,goPag} from '/js/coach_VGlob.js'
-import {rKeos,rLang,rNodoClase,rTxtML,rTagML,rUsuario} from '/k1/libK1_Clases.js'
+import {vgApp,goPag} from '/coach/js/coach_VGlob.js'
 
 
 window.vgApp = vgApp;

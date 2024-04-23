@@ -21,10 +21,10 @@ The final regex literal:
 Para permitir espacios y no punto: [\w ]
 */
 
-import utils  from '/k1/libK1_Utils.js'
-import topol  from '/k1/libK1_Topol.js'
-import tempo  from '/k1/libK1_Tiempo.js'
-import clases from '/k1/libK1_Clases.js'
+import utils  from '../k1/libK1_Utils.js'
+import topol  from '../k1/libK1_Topol.js'
+import tempo  from '../k1/libK1_Tiempo.js'
+import clases from '../k1/libK1_Clases.js'
 
 //=================================================================== ALMANAQUE
 //------------------------------------------------------------------- Almanaque coach

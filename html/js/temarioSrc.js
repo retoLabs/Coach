@@ -1,8 +1,8 @@
 
-import utils from '/k1/libK1_Utils.js'
-import sess  from '/k1/libK1_Sesion.js'
-import ajax  from '/k1/libK1_Ajax.js'
-import topol from '/k1/libK1_Topol.js'
+import utils from '../k1/libK1_Utils.js'
+import sess  from '../k1/libK1_Sesion.js'
+import ajax  from '../k1/libK1_Ajax.js'
+import topol from '../k1/libK1_Topol.js'
 
 import {vgApp,goPag} from '/js/coach_VGlob.js'
 import coach   from  '/js/coach_Clases.js'

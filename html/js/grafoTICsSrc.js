@@ -1,8 +1,8 @@
-import utils  from '/k1/libK1_Utils.js'
-import ajax   from '/k1/libK1_Ajax.js'
-import topol  from '/k1/libK1_Topol.js'
-import trazo  from '/k1/libK1_Trazo.js'
-import vapps  from '/k1/libK1_vApps.js'
+import utils  from '../k1/libK1_Utils.js'
+import ajax   from '../k1/libK1_Ajax.js'
+import topol  from '../k1/libK1_Topol.js'
+import trazo  from '../k1/libK1_Trazo.js'
+import vapps  from '../k1/libK1_vApps.js'
 import {Cosa,n4jArco}  from '/js/neo4j_Clases.js'
 
 
